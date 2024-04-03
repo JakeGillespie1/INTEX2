@@ -87,10 +87,11 @@ internal class Program
                 var user = new IdentityUser();
                 user.UserName = email;
                 user.Email = email;
+                user.EmailConfirmed = true;
 
                 await userManager.CreateAsync(user, password);
 
-                userManager.AddToRoleAsync()
+                await userManager.AddToRoleAsync(user, "Admin");
             }
 
 
