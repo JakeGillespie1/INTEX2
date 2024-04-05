@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Home Page";
@@ -14,17 +14,17 @@
 
 @if (User.IsInRole("Admin"))
 {
-    <h1>Hi Admin</h1>
+    <h1>Good @ViewBag.TimeOfDay, Admin</h1>
 }
 else if (User.IsInRole("Manager"))
 {
-    <h1>Hi @User.Identity?.Name</h1>
+    <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
 }
 else if (User.IsInRole("Member"))
 {
-    <h1>Welcome @User.Identity?.Name</h1>
+    <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
 }
 else
 {
-    <h1>Welcome!</h1>
+    <h1>Good @ViewBag.TimeOfDay</h1>
 }
