@@ -1,7 +1,9 @@
+using INTEX2.Areas.Identity.Pages.Account;
 using INTEX2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Diagnostics;
 
 namespace INTEX2.Controllers
@@ -15,15 +17,36 @@ namespace INTEX2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public HomeController(ILogger<HomeController> logger)
+        private readonly Tools _tools;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<AppUser> _userManager;
+
+        public HomeController(ILogger<HomeController> logger, Tools tools, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
             _logger = logger;
+            _tools = tools;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //Grab the user by the user's name
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                return View();
+            }
+            else
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+
+                return View();
+            }
         }
 
         [Authorize(Roles = "Admin")]
