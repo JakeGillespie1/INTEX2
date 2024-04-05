@@ -10,6 +10,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 internal class Program
 {
@@ -21,7 +26,7 @@ internal class Program
 
 
         // Add services to the container.
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"]/*.GetConnectionString("DefaultConnection")*/;
         
         //Add Connections from context files to sqlserver
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -75,6 +80,7 @@ internal class Program
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages();
+        app.MapControllers();
 
         app.UseAuthentication();
         app.UseAuthorization();
