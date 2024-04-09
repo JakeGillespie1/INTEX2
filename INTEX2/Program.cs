@@ -55,7 +55,7 @@ internal class Program
         //});
 
         //Register Custom Tools and User Classes with the program.
-        builder.Services.AddTransient<Tools> ();
+        builder.Services.AddScoped<Tools>();
 
         var app = builder.Build();
 
