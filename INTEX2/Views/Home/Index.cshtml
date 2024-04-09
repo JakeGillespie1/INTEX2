@@ -7,11 +7,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<vc:nav-bar-types user="User"></vc:nav-bar-types>
 
+
+@* <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
 @if (User.IsInRole("Admin"))
 {
     <h1>Good @ViewBag.TimeOfDay, Admin</h1>
@@ -28,3 +27,15 @@ else
 {
     <h1>Good @ViewBag.TimeOfDay</h1>
 }
+</div>
+ *@
+
+<div class="image-cont">
+    <div class="image-wrapper">
+        <img src="~/img/3-space (1).jpg" id="astro" alt="3 peeps" />
+        <a asp-area="" asp-controller="Home" asp-action="ProductsPage">SHOP WITH US</a>
+      
+    </div>
+</div>
+
+
