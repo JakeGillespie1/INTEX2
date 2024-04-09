@@ -81,7 +81,7 @@ internal class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages();
         app.MapControllers();
-
+        app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
 
@@ -91,7 +91,7 @@ internal class Program
             //Add your roles here (seeding some initial data into our system)
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            var roles = new[] { "Admin", "Manager", "Member" };
+            var roles = new[] { "Admin", "Member" };
 
             foreach (var role in roles)
             {
