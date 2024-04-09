@@ -15,7 +15,8 @@ namespace INTEX2.Models
             { "keyYear", DateTime.Now.Year },
             { "keyMonth", DateTime.Now.Month },
             { "keyDay", DateTime.Now.Day },
-            { "keyHour", DateTime.Now.Hour }
+            //Hard-coded MST here for speed and convenience. This would be good to change on the client-side later.
+            { "keyHour", TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time")).Hour }
         };
 
         public string GetFormattedStringDate()

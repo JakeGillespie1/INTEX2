@@ -1,15 +1,24 @@
 {
   "dependencies": {
-    "secrets1": {
-      "type": "secrets",
-      "dynamicId": null
-    },
     "identityapp1": {
       "type": "identityapp"
     },
     "sqlite1": {
       "type": "sqlite",
       "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:INTEX2db"
+    },
+    "secrets2": {
+      "type": "secrets",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "VaultUri",
       "dynamicId": null
     }
   }

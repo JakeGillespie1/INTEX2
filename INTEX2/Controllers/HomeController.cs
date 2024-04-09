@@ -16,10 +16,10 @@ namespace INTEX2.Controllers
     //[Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly Tools _tools;
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private ILogger<HomeController> _logger;
+        private Tools _tools;
+        private SignInManager<AppUser> _signInManager;
+        private UserManager<AppUser> _userManager;
 
         public HomeController(ILogger<HomeController> logger, Tools tools, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager)
         {
