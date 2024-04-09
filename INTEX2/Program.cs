@@ -48,11 +48,11 @@ internal class Program
 
         builder.Services.AddControllersWithViews();
 
-        //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-        //{
-        //    microsoftOptions.ClientId = config["Authentication:Microsoft:ClientId"];
-        //    microsoftOptions.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
-        //});
+        services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+        {
+            microsoftOptions.ClientId = config["Authentication:Microsoft:ClientId"];
+            microsoftOptions.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
+        });
 
         //Register Custom Tools and User Classes with the program.
         builder.Services.AddTransient<Tools> ();
