@@ -86,9 +86,9 @@ public partial class INTEX2Context : DbContext
 
         modelBuilder.Entity<LineItem>(entity =>
         {
-            entity.HasKey(e => new { e.TransactionId, e.ProductId });
+            entity.HasKey(e => new { e.OrderId, e.ProductId });
 
-            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
+            entity.Property(e => e.OrderId).HasColumnName("transaction_ID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
@@ -120,7 +120,7 @@ public partial class INTEX2Context : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("shipping_address");
             entity.Property(e => e.Time).HasColumnName("time");
-            entity.Property(e => e.TransactionId).HasColumnName("transaction_ID");
+            entity.Property(e => e.OrderId).HasColumnName("transaction_ID");
             entity.Property(e => e.TypeOfCard)
                 .HasMaxLength(50)
                 .HasColumnName("type_of_card");
@@ -148,9 +148,6 @@ public partial class INTEX2Context : DbContext
             entity.Property(e => e.PrimaryColor)
                 .HasMaxLength(50)
                 .HasColumnName("primary_color");
-            entity.Property(e => e.SecondaryColor)
-                .HasMaxLength(50)
-                .HasColumnName("secondary_color");
             entity.Property(e => e.Year).HasColumnName("year");
         });
 
