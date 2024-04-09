@@ -60,6 +60,50 @@ namespace INTEX2.Controllers
             return View();
         }
 
+        public IActionResult ProductsPage()
+        {
+
+            //Grab the user by the user's name
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                return View();
+            }
+            else
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+
+                return View();
+            }
+            
+        }
+
+        public IActionResult About()
+        {
+
+            //Grab the user by the user's name
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                return View();
+            }
+            else
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+
+                return View();
+            }
+
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

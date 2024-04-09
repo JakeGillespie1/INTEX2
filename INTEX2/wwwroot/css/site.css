@@ -18,5 +18,367 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: white;
+    font-family: "Poppins", sans-serif;
+}
+
+/*Colors*/
+:root {
+    --my-pink: #E65C77;
+    --my-yellow: #FDE96D;
+    --morning-text-color: #518ac5;
+    --afternoon-text-color: #3c5190;
+    --evening-text-color: #d4a42a;
+    --night-text-color: #100f57;
+}
+
+
+/*Fonts*/
+.poppins-thin {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.poppins-extralight {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+
+.poppins-light {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.poppins-regular {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.poppins-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.poppins-semibold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.poppins-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.poppins-extrabold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.poppins-black {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.poppins-thin-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.poppins-extralight-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    font-style: italic;
+}
+
+.poppins-light-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.poppins-regular-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+.poppins-medium-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.poppins-semibold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.poppins-bold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: italic;
+}
+
+.poppins-extrabold-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: italic;
+}
+
+.poppins-black-italic {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-style: italic;
+}
+
+/* CSS */
+.nav-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2px;
+    margin-bottom: 8px;
+    padding-left: 6%;
+    padding-right: 10%;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+
+}
+
+.logo {
+    color: black;
+    font-size: 28px;
+    width: 150px;
+    height: auto;
+    padding-top: 5px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+    nav ul li {
+        padding: 10px 20px;
+    }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--my-pink); /* Make sure --my-pink is defined */
+        }
+
+            nav ul li a:hover {
+                color: #d4153a;
+                
+            }
+
+button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease; /* Add transition effect */
+}
+
+    button:hover {
+        color: red; /* Change color on hover */
+    }
+
+.fade-in {
+    opacity: 1;
+}
+
+
+.greeting {
+    text-align: center;
+    animation: slideIn 0.9s ease forwards;
+    
+}
+
+.greeting h1{
+    font-size: 12px;
+    margin-top: 10px
+}
+@keyframes slideIn {
+    from {
+        transform: translateY(-20%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.morning {
+    color: var(--morning-text-color); /* Define morning text color */
+}
+
+.afternoon {
+    color: var(--afternoon-text-color); /* Define morning text color */
+}
+.evening {
+    color: var(--evening-text-color); /* Define evening text color */
+}
+
+.night {
+    color: var(--night-text-color); /* Define night text color */
+}
+
+
+.image-cont {
+    max-width: 100%;
+    max-height: 600px; /* Adjust this value to your desired height */
+    overflow: hidden; /* This ensures that the image does not overflow its container */
+    display: flex; /* Use flexbox to vertically center the image */
+    align-items: flex-start;
+    
+    /* Align items to the start of the flex container (top) */
+}
+
+    .image-cont img {
+        width: 100%;
+        height: auto; /* This ensures that the image maintains its aspect ratio */
+        display: block; /* This ensures that the image respects the container's width */
+        vertical-align: bottom; /* Align the image to the top of the line */
+    }
+
+.image-wrapper a {
+    position: absolute; /* Set position to absolute for the text */
+    top: 24%; /* Align the text vertically at 50% from the top */
+    left: 50%; /* Align the text horizontally at 50% from the left */
+    transform: translate(-50%, -50%); /* Translate the text back by 50% of its own height and width */
+    color: white; /* Set text color */
+    font-weight: 700;
+    font-size: 6vw;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    text-shadow: 2px 10px 15px rgba(0, 0, 0, 0.1);
+    line-height: 1.3;
+    text-decoration: none;
+    letter-spacing: -2px;
+}
+
+    .image-wrapper a::after {
+        content: ''; /* Add content for the pseudo-element */
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%; /* Full width */
+        height: 3px; /* Height of the underline */
+        background-color: white; /* Color of the underline */
+        transform: translateX(-100%); /* Initially hide the underline off to the left */
+        transition: transform 0.3s ease; /* Add transition effect for sliding in */
+    }
+
+    .image-wrapper a:hover::after {
+        transform: translateX(0); /* Slide the underline in on hover */
+    }
+
+#astro {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    transition: filter 0.7s ease;
+}
+
+    .image-wrapper:hover #astro {
+        filter: none;
+        -webkit-filter: grayscale(0);
+        cursor: pointer;
+    }
+
+
+footer {
+    align-items: center;
+    text-align: center;
+    font-family: "Poppins";
+    font-weight: 900;
+}
+.feets {
+    max-height: 150px;
+}
+
+
+.footer {
+    display: flex; /* Use flexbox to align containers horizontally */
+    justify-content: space-between; /* Space out the two containers */
+    align-items: center; /* Align items vertically in the center */
+    background-color: white; /* Add a background color for the footer */
+    padding: 20px; /* Add padding to the footer */
+    
+}
+
+.anotha-one p {
+    flex: 1;
+    font-size: 12px;
+    word-wrap: break-word;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: var(--my-pink);
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+
+.logo-container,
+.links-container {
+    flex: 1; /* Allow containers to grow and fill available space */
+    
+}
+
+.links-container {
+    flex: 0 0 auto; /* Ensure the links container doesn't grow or shrink */
+    text-align: right; /* Align the content to the right */
+}
+
+.logo-container {
+    flex: 0 0 auto; /* Ensure the logo container doesn't grow or shrink */
+    display: flex; /* Use flexbox to align items */
+    align-items: center; /* Align items vertically */
+}
+
+
+.logogo {
+    max-width: 100px; /* Set maximum width for the logo */
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.footer-links ul {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.footer-links li {
+    display: inline-block; /* Display list items horizontally */
+    margin-right: 20px; /* Add spacing between list items */
+}
+
+.footer-links a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Set link color */
 }
