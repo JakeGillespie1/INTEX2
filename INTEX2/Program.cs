@@ -15,6 +15,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
+using System.Configuration;
 
 internal class Program
 {
@@ -26,14 +30,12 @@ internal class Program
 
 
         // Add services to the container.
-        var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"]/*.GetConnectionString("DefaultConnection")*/;
-        
         //Add Connections from context files to sqlserver
+        var connectionString = builder.Configuration.GetConnectionString("INTEX2db") ?? throw new InvalidOperationException("Connection string 'INTEX2db' not found.");
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(connectionString));
+            options.UseSqlServer(connectionString));
         builder.Services.AddDbContext<INTEX2Context>(options =>
-        options.UseSqlite(connectionString));
-
+            options.UseSqlServer(connectionString));
         builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
         builder.Services.AddDefaultIdentity<AppUser>(options =>
@@ -48,11 +50,6 @@ internal class Program
 
         builder.Services.AddControllersWithViews();
 
-        //services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
-        //{
-        //    microsoftOptions.ClientId = config["Authentication:Microsoft:ClientId"];
-        //    microsoftOptions.ClientSecret = config["Authentication:Microsoft:ClientSecret"];
-        //});
 
         //Register Custom Tools and User Classes with the program.
         builder.Services.AddScoped<Tools>();
