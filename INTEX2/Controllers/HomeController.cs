@@ -98,7 +98,21 @@ namespace INTEX2.Controllers
         }
         public IActionResult Privacy()
         {
-            return View();
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                return View();
+            }
+            else
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+
+                return View();
+            }
         }
 
         public IActionResult ProductsPage()

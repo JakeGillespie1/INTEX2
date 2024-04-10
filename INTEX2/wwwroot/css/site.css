@@ -41,6 +41,9 @@ body {
     --evening-text-color: #ff8430;
     --night-text-color: #100f57;
     --hover: #b40729;
+    --login: #dbdbdb;
+    --input: #E65C77;
+    --return-link: #a3233c;
 }
 .dark-theme {
     --my-pink: #f69aac;
@@ -48,7 +51,14 @@ body {
     --night-text-color: white;
     --black: white;
     --img-back: #1f1d1d;
-    --hover: #f4b8c3
+    --hover: #f4b8c3;
+    --login: #6d6868;
+    --input: #222222;
+    --morning-text-color: #518ac5;
+    --afternoon-text-color: #FDE96D;
+    --evening-text-color: #ff8430;
+    --night-text-color: #8bbaf8;
+    --return-link: #a3233c;
 }
 
 /*Fonts*/
@@ -151,7 +161,7 @@ body {
 .poppins-extrabold-italic {
     font-family: "Poppins", sans-serif;
     font-weight: 800;
-    font-style: italic;
+    
 }
 
 .poppins-black-italic {
@@ -276,7 +286,7 @@ nav ul {
 
 .image-cont {
     max-width: 100%;
-    max-height: 400px; /* Adjust this value to your desired height */
+    max-height: 550px; /* Adjust this value to your desired height */
     overflow: hidden; /* This ensures that the image does not overflow its container */
     display: flex; /* Use flexbox to vertically center the image */
     align-items: flex-start;
@@ -432,16 +442,18 @@ footer {
 }
 
 .login-container {
-    background-color: #f8f9fa; /* Light gray background */
+    background-color: var(--login);
     padding: 20px;
     padding-top: 50px;
     border-radius: 20px; /* Rounded corners */
     margin: 0 auto; /* Center the container */
     max-width: 1000px; /* Limit container width */
+    color: var(--input);
 }
 
 .login-form {
     margin-top: 20px; /* Add some space between the header and form */
+  
 }
 
 #login-submit {
@@ -453,6 +465,11 @@ footer {
     display: block;
     margin: 0 auto;
 }
+
+.links {
+    color: var(--black);
+}
+
 
 .logout-btn {
     background: none;
@@ -612,9 +629,10 @@ footer {
     margin-bottom: 20px; /* Add spacing between image/text and return home button */
     color: var(--my-pink);
 }
-.about-content h1 {
-    color: var(--black);
-}
+    .about-content h1 {
+        color: var(--black);
+        font-weight: 800;
+    }
 
 .about-img {
     flex: 1; /* Take up one-third of the available space */
@@ -628,6 +646,9 @@ footer {
 .about-txt {
     flex: 2; /* Take up two-thirds of the available space */
     padding: 0 20px; /* Add padding to create space between image and text */
+    text-align: center;
+    margin-right: 20px;
+    
 }
 
 .return-home {
@@ -647,6 +668,29 @@ footer {
 
         .return-home a:hover {
             text-decoration: none; /* Add underline on hover */
-            background-color: var(--black);
+            background-color: var(--return-link);
  
         }
+
+/*PRIVACY POLICY*/
+
+.privacy {
+    text-align: left;
+    margin: 50px;
+    padding: 20px;
+    color: var(--my-pink);
+}
+
+.privacy h1 {
+    text-align: center;
+    color: var(--black);
+    font-weight: 900;
+}
+
+.privacy h2 {
+    font-weight: 700;
+}
+
+.ita {
+    font-style: italic;
+}
