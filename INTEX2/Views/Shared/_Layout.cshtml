@@ -85,23 +85,39 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-
     <script>
+        // Function to toggle dark mode
+        function toggleDarkMode() {
+            var iconf = document.getElementById("iconf");
+            var astro = document.getElementById("astro");
 
-        var iconf = document.getElementById("iconf");
-        var astro = document.getElementById("astro");
-
-        iconf.onclick = function () {
+            // Toggle dark theme class on body
             document.body.classList.toggle("dark-theme");
+
             // Toggle image source based on dark mode
             if (document.body.classList.contains("dark-theme")) {
                 astro.src = "img/sick-car.jpg";
-            } 
-            else {
+                // Store dark mode preference in local storage
+                localStorage.setItem("darkMode", "true");
+            } else {
                 astro.src = "img/3-space (1).jpg";
+                // Remove dark mode preference from local storage
+                localStorage.removeItem("darkMode");
             }
         }
+
+        // Check if dark mode preference exists in local storage
+        if (localStorage.getItem("darkMode") === "true") {
+            // Apply dark mode if preference is set
+            document.body.classList.add("dark-theme");
+            // Update image source for dark mode
+            document.getElementById("astro").src = "img/sick-car.jpg";
+        }
+
+        // Add click event listener to dark mode button
+        document.getElementById("iconf").addEventListener("click", toggleDarkMode);
     </script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

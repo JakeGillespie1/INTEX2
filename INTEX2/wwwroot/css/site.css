@@ -594,3 +594,59 @@ footer {
         transform: translateY(0);
     }
 }
+
+/*ABOUT PAGE CSS*/
+
+.about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing between image/text and return home button */
+    color: var(--my-pink);
+}
+.about-content h1 {
+    color: var(--black);
+}
+
+.about-img {
+    flex: 1; /* Take up one-third of the available space */
+}
+
+    .about-img img {
+        max-width: 100%;
+        height: auto; /* Ensure image maintains aspect ratio */
+    }
+
+.about-txt {
+    flex: 2; /* Take up two-thirds of the available space */
+    padding: 0 20px; /* Add padding to create space between image and text */
+}
+
+.return-home {
+    margin-top: 20px; /* Add spacing between text and return home button */
+}
+
+    .return-home a {
+        text-decoration: none;
+        background-color: var(--my-pink);
+        border-radius: 19px;
+        padding: 10px;
+        color: white; /* Change color as needed */
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        text-transform: uppercase;
+    }
+
+        .return-home a:hover {
+            text-decoration: none; /* Add underline on hover */
+            background-color: var(--black);
+ 
+        }
