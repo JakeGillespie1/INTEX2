@@ -6,7 +6,7 @@ namespace INTEX2.Models
     {
         IQueryable<Category> Categories { get; }
 
-        IQueryable<Product> Products { get; }
+        IEnumerable<Product> Products { get; }
 
         IQueryable<Customer> Customers { get; }
 

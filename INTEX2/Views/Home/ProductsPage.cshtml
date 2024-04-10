@@ -7,12 +7,57 @@
     ViewData["Title"] = "Products Page";
 }
 
+@model IEnumerable<Product>
 
 <vc:nav-bar-types id="navBar" user="Default"></vc:nav-bar-types>
 
 <div>
-    <p>Hey there</p>
+    @foreach (var p in Model)
+    {
+        <h3>@p.Name</h3>
+
+        <ul>
+            <li>@p.Year</li>
+            <li>@p.NumParts</li>
+            <li>@p.Price</li>
+            <li>@p.PrimaryColor</li>
+        </ul>
+    }
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -117,7 +117,10 @@ namespace INTEX2.Controllers
 
         public IActionResult ProductsPage()
         {
+           /* int pageSize = 5;*/ //eventualy have the user able to do this 
 
+            var productData = _repo.Products
+                .OrderBy(x => x.ProductId);
             //Grab the user by the user's name
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
@@ -125,14 +128,14 @@ namespace INTEX2.Controllers
             if (userClaim == null)
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-                return View();
+                return View(productData);
             }
             else
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 ViewBag.UserName = user.Result?.FirstName;
 
-                return View();
+                return View(productData);
             }
             
         }

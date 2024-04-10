@@ -17,7 +17,7 @@ namespace INTEX2.Models
 
         public IQueryable<Category> Categories => _context.Categories;
 
-        public IQueryable<Product> Products => _context.Products;
+        public IEnumerable<Product> Products => _context.Products;
 
         public IQueryable<Customer> Customers => _context.Customers;
 
