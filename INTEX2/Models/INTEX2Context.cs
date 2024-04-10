@@ -14,8 +14,8 @@ public partial class INTEX2Context : DbContext
         : base(options)
     {
     }
-
     public DbSet<AppUser> Users { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -63,8 +63,11 @@ public partial class INTEX2Context : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.CustomerId).HasName("PK_Customers_CustomerID");
 
+            entity.Property(e => e.CustomerId)
+                .ValueGeneratedNever()
+                .HasColumnName("CustomerID");
             entity.Property(e => e.Age).HasColumnName("age");
             entity.Property(e => e.BirthDate)
                 .HasMaxLength(50)
@@ -72,7 +75,6 @@ public partial class INTEX2Context : DbContext
             entity.Property(e => e.CountryOfResidence)
                 .HasMaxLength(50)
                 .HasColumnName("country_of_residence");
-            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
             entity.Property(e => e.FirstName)
                 .HasMaxLength(100)
                 .HasColumnName("first_name");
@@ -88,16 +90,29 @@ public partial class INTEX2Context : DbContext
         {
             entity.HasKey(e => new { e.OrderId, e.ProductId });
 
-            entity.Property(e => e.OrderId).HasColumnName("transaction_ID");
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.Qty).HasColumnName("qty");
             entity.Property(e => e.Rating).HasColumnName("rating");
+
+            entity.HasOne(d => d.Order).WithMany(p => p.LineItems)
+                .HasForeignKey(d => d.OrderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_OrderID");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.LineItems)
+                .HasForeignKey(d => d.ProductId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ProductID");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasNoKey();
+            entity.HasKey(e => e.OrderId).HasName("PK_Orders_OrderID");
 
+            entity.Property(e => e.OrderId)
+                .ValueGeneratedNever()
+                .HasColumnName("OrderID");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank)
                 .HasMaxLength(50)
@@ -105,7 +120,7 @@ public partial class INTEX2Context : DbContext
             entity.Property(e => e.CountryOfTransaction)
                 .HasMaxLength(50)
                 .HasColumnName("country_of_transaction");
-            entity.Property(e => e.CustomerId).HasColumnName("customer_ID");
+            entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.Date)
                 .HasMaxLength(50)
                 .HasColumnName("date");
@@ -120,13 +135,17 @@ public partial class INTEX2Context : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("shipping_address");
             entity.Property(e => e.Time).HasColumnName("time");
-            entity.Property(e => e.OrderId).HasColumnName("transaction_ID");
             entity.Property(e => e.TypeOfCard)
                 .HasMaxLength(50)
                 .HasColumnName("type_of_card");
             entity.Property(e => e.TypeOfTransaction)
                 .HasMaxLength(50)
                 .HasColumnName("type_of_transaction");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.CustomerId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_CustomerID");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -148,6 +167,9 @@ public partial class INTEX2Context : DbContext
             entity.Property(e => e.PrimaryColor)
                 .HasMaxLength(50)
                 .HasColumnName("primary_color");
+            entity.Property(e => e.SecondaryColor)
+                .HasMaxLength(50)
+                .HasColumnName("secondary_color");
             entity.Property(e => e.Year).HasColumnName("year");
         });
 

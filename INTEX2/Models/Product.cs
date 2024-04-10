@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace INTEX2.Models;
 
 public partial class Product
 {
-    [Key]
     public int ProductId { get; set; }
 
     public string Name { get; set; } = null!;
@@ -21,7 +19,11 @@ public partial class Product
 
     public string PrimaryColor { get; set; } = null!;
 
+    public string SecondaryColor { get; set; } = null!;
+
     public string Description { get; set; } = null!;
+
+    public virtual ICollection<LineItem> LineItems { get; set; } = new List<LineItem>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }

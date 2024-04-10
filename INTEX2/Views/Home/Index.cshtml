@@ -9,29 +9,32 @@
 
 <vc:nav-bar-types user="User"></vc:nav-bar-types>
 
-
-@* <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
-@if (User.IsInRole("Admin"))
-{
-    <h1>Good @ViewBag.TimeOfDay, Admin</h1>
-}
-else if (User.IsInRole("Member"))
-{
-    <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
-}
-else
-{
-    <h1>Good @ViewBag.TimeOfDay</h1>
-}
-</div>
- *@
-
 <div class="image-cont">
     <div class="image-wrapper">
         <img src="~/img/3-space (1).jpg" id="astro" alt="3 peeps" />
         <a asp-area="" asp-controller="Home" asp-action="ProductsPage">SHOP WITH US</a>
       
     </div>
+</div>
+<div class="container">
+<h1>Most Purchased Products</h1>
+@for (int i = 0; i < 12; i += 4)
+{
+    <img src="@ViewBag.MostPurchasedProducts[i]" />
+    <p>Product ID: @ViewBag.MostPurchasedProducts[i+1]</p>
+    <p>Name: @ViewBag.MostPurchasedProducts[i+2]</p>
+    <p>Price: @ViewBag.MostPurchasedProducts[i+3]</p>
+}
+</div>
+<div class="container">
+<h1>Most Highly Rated Products</h1>
+@for (int i = 0; i < 12; i += 4)
+{
+    <img src="@ViewBag.MostHighlyRatedProducts[i]" />
+    <p>Product ID: @ViewBag.MostHighlyRatedProducts[i+1]</p>
+    <p>Name: @ViewBag.MostHighlyRatedProducts[i+2]</p>
+    <p>Price: @ViewBag.MostHighlyRatedProducts[i+3]</p>
+}
 </div>
 
 

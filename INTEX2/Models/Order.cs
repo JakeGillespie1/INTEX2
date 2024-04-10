@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace INTEX2.Models;
 
 public partial class Order
 {
-    [Key]
     public int OrderId { get; set; }
 
-    [ForeignKey("Customer")]
     public int CustomerId { get; set; }
-    public Customer Customer { get; set; }
 
     public string Date { get; set; } = null!;
 
@@ -35,4 +30,8 @@ public partial class Order
     public string TypeOfCard { get; set; } = null!;
 
     public short Fraud { get; set; }
+
+    public virtual Customer Customer { get; set; } = null!;
+
+    public virtual ICollection<LineItem> LineItems { get; set; } = new List<LineItem>();
 }

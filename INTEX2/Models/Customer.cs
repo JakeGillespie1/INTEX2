@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace INTEX2.Models;
 
 public partial class Customer
 {
-    [Key]
-    public short CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
@@ -20,4 +18,6 @@ public partial class Customer
     public string? Gender { get; set; }
 
     public byte Age { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }
