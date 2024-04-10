@@ -5,7 +5,23 @@
     ViewData["Title"] = "Log in";
 }
 
+<nav class="nav-main">
+    <a asp-area="" asp-controller="Home" asp-action="Index">
+        <img src="~/img/new-aur.png" alt="Logo" class="logo">
+    </a>
+    <ul class="fade-in">
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li><a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Shop</a></li>
+        <li><a href="#">Cart</a></li>
+    </ul>
+  
+</nav>
+
+<div class="more-pls">
+<div class="login-container">
 <h1>@ViewData["Title"]</h1>
+<div class="login-form">
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -75,6 +91,9 @@
                 }
             }
         </section>
+        </div>
+    </div>
+</div>
     </div>
 </div>
 

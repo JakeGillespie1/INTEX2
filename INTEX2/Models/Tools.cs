@@ -36,9 +36,13 @@ namespace INTEX2.Models
             {
                 timeOfDay = "Afternoon";
             }
-            else if(hourOfDay >= 16 && hourOfDay <= 23) 
+            else if(hourOfDay >= 16 && hourOfDay <= 20) 
             {
                 timeOfDay = "Evening";
+            }
+            else if (hourOfDay >= 20 && hourOfDay <= 23)
+            {
+                timeOfDay = "Night";
             }
 
             return timeOfDay;

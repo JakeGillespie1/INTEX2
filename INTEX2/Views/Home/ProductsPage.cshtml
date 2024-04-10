@@ -8,9 +8,24 @@
 }
 
 
-<vc:nav-bar-types user="Visitor"></vc:nav-bar-types>
+<vc:nav-bar-types id="navBar" user="Default"></vc:nav-bar-types>
 
 <div>
     <p>Hey there</p>
 </div>
 
+
+
+<vc:footer-types></vc:footer-types>
+
+
+<script>
+    // Check if the user is logged in
+    var isLoggedIn = @(User.Identity.IsAuthenticated ? "true" : "false");
+
+    // Get the nav bar element
+    var navBar = document.getElementById("navBar");
+
+    // Update the user attribute based on whether the user is logged in
+    navBar.setAttribute("user", isLoggedIn ? "User" : "Default");
+</script>

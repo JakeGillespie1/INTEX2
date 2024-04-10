@@ -86,16 +86,16 @@ internal class Program
         using (var scope = app.Services.CreateScope())
         {
             //Add your roles here (seeding some initial data into our system)
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            var roles = new[] { "Admin", "Member" };
+            //var roles = new[] { "Admin", "Member" };
 
-            foreach (var role in roles)
-            {
-                //Check if a role exists
-                if (!await roleManager.RoleExistsAsync(role))
-                    await roleManager.CreateAsync(new IdentityRole(role));
-            }
+            //foreach (var role in roles)
+            //{
+            //    //Check if a role exists
+            //    if (!await roleManager.RoleExistsAsync(role))
+            //        await roleManager.CreateAsync(new IdentityRole(role));
+            //}
 
         }
 

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
-
+@using System.Security.Principal
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
@@ -7,8 +7,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<vc:nav-bar-types user="User"></vc:nav-bar-types>
+@{
+    string userRole = "Default"; // Default role
 
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
 @* <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
 @if (User.IsInRole("Admin"))
@@ -28,10 +43,13 @@ else
 
 <div class="image-cont">
     <div class="image-wrapper">
-        <img src="~/img/3-space (1).jpg" id="astro" alt="3 peeps" />
+        <img src="img/3-space (1).jpg" id="astro" alt="3 peeps" />
+     
+    
         <a asp-area="" asp-controller="Home" asp-action="ProductsPage">SHOP WITH US</a>
       
     </div>
 </div>
 
 
+<vc:footer-types></vc:footer-types>

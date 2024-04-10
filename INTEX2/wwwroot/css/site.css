@@ -21,20 +21,28 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    background: white;
+    background: var(--secondary);
     font-family: "Poppins", sans-serif;
+    display: flex;
+    flex-direction: column;
 }
+
 
 /*Colors*/
 :root {
-    --my-pink: #E65C77;
+    --my-pink: #E65C77; /*MAIN TEXT COLOR*/
     --my-yellow: #FDE96D;
+    --secondary: white; /*BACKGROUND COLOR*/
     --morning-text-color: #518ac5;
     --afternoon-text-color: #3c5190;
-    --evening-text-color: #d4a42a;
+    --evening-text-color: #ff8430;
     --night-text-color: #100f57;
 }
-
+.dark-theme {
+    --my-pink: #f69aac;
+    --secondary: #141313;
+    --night-text-color: white;
+}
 
 /*Fonts*/
 .poppins-thin {
@@ -152,13 +160,25 @@ body {
     justify-content: space-between;
     padding-top: 2px;
     margin-bottom: 8px;
-    padding-left: 6%;
-    padding-right: 10%;
+    padding-left: 2%;
+    padding-right: 2%;
     font-family: "Poppins", sans-serif;
     font-weight: 600;
     opacity: 0;
     transition: opacity 2.5s ease;
 
+}
+.greeting {
+    display: flex;
+    align-items: center;
+}
+
+    .greeting h1 {
+        margin-right: 10px; /* Add spacing between the text and image */
+    }
+
+.greeting-image-container {
+    flex-shrink: 0; /* Prevent the image from shrinking */
 }
 
 .logo {
@@ -192,18 +212,18 @@ nav ul {
                 
             }
 
-button {
+/*button {
     background-color: transparent;
     border: none;
     color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: color 0.3s ease; /* Add transition effect */
-}
+    transition: color 0.3s ease;*/ /* Add transition effect */
+/*}
 
     button:hover {
-        color: red; /* Change color on hover */
-    }
+        color: red;*/ /* Change color on hover */
+    /*}*/
 
 .fade-in {
     opacity: 1;
@@ -211,15 +231,14 @@ button {
 
 
 .greeting {
-    text-align: center;
     animation: slideIn 0.9s ease forwards;
-    
+    text-align: right;
 }
 
-.greeting h1{
-    font-size: 12px;
-    margin-top: 10px
-}
+    .greeting h1 {
+        font-size: 12px;
+        margin-top: 10px;
+    }
 @keyframes slideIn {
     from {
         transform: translateY(-20%);
@@ -282,6 +301,7 @@ button {
     letter-spacing: -2px;
 }
 
+
     .image-wrapper a::after {
         content: ''; /* Add content for the pseudo-element */
         position: absolute;
@@ -310,12 +330,17 @@ button {
         cursor: pointer;
     }
 
+.main-content {
+    flex: 1; /* Allow the main content to grow and occupy remaining space */
+}
 
 footer {
     align-items: center;
     text-align: center;
     font-family: "Poppins";
     font-weight: 900;
+    position: fixed;
+    width: 100%;
 }
 .feets {
     max-height: 150px;
@@ -326,9 +351,8 @@ footer {
     display: flex; /* Use flexbox to align containers horizontally */
     justify-content: space-between; /* Space out the two containers */
     align-items: center; /* Align items vertically in the center */
-    background-color: white; /* Add a background color for the footer */
+    background-color: var(--secondary); /* Add a background color for the footer */
     padding: 20px; /* Add padding to the footer */
-    
 }
 
 .anotha-one p {
@@ -382,3 +406,58 @@ footer {
     text-decoration: none; /* Remove underline from links */
     color: #333; /* Set link color */
 }
+
+.sky {
+    max-height: 10px;
+}
+.sky-img {
+    max-height: 30px;
+}
+
+
+.secrets {
+    text-align: center;
+    color: var(--my-pink);
+}
+
+.more-pls {
+    padding-top: 10px;
+}
+
+.login-container {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px;
+    padding-top: 50px;
+    border-radius: 20px; /* Rounded corners */
+    margin: 0 auto; /* Center the container */
+    max-width: 1000px; /* Limit container width */
+}
+
+.login-form {
+    margin-top: 20px; /* Add some space between the header and form */
+}
+
+#login-submit {
+    background-color: var(--my-pink); /* Use custom color for the button */
+}
+
+/* Center the button */
+#login-submit {
+    display: block;
+    margin: 0 auto;
+}
+
+.logout-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+}
+
+    .logout-btn:hover {
+        text-decoration: none;
+        color: red;
+    }
