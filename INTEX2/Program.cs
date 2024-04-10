@@ -53,6 +53,7 @@ internal class Program
 
         //Register Custom Tools and User Classes with the program.
         builder.Services.AddScoped<Tools>();
+        builder.Services.AddScoped<IINTEX2Repository, EFINTEX2Repository>();
 
         var app = builder.Build();
 

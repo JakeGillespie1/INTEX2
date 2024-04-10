@@ -50,6 +50,26 @@ else
       
     </div>
 </div>
+<div class="container">
+<h1>Most Purchased Products</h1>
+@for (int i = 0; i < 12; i += 4)
+{
+    <img src="@ViewBag.MostPurchasedProducts[i]" />
+    <p>Product ID: @ViewBag.MostPurchasedProducts[i+1]</p>
+    <p>Name: @ViewBag.MostPurchasedProducts[i+2]</p>
+    <p>Price: @ViewBag.MostPurchasedProducts[i+3]</p>
+}
+</div>
+<div class="container">
+<h1>Most Highly Rated Products</h1>
+@for (int i = 0; i < 12; i += 4)
+{
+    <img src="@ViewBag.MostHighlyRatedProducts[i]" />
+    <p>Product ID: @ViewBag.MostHighlyRatedProducts[i+1]</p>
+    <p>Name: @ViewBag.MostHighlyRatedProducts[i+2]</p>
+    <p>Price: @ViewBag.MostHighlyRatedProducts[i+3]</p>
+}
+</div>
 
 
 <vc:footer-types></vc:footer-types>

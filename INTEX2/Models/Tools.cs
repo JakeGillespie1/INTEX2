@@ -28,7 +28,7 @@ namespace INTEX2.Models
         {
             int hourOfDay = _dateDictionary["keyHour"];
             string timeOfDay = "";
-            if (hourOfDay >= 0 &&  hourOfDay < 12) 
+            if (hourOfDay >= 0 && hourOfDay < 12)
             {
                 timeOfDay = "Morning";
             }
