@@ -44,32 +44,46 @@ else
 <div class="image-cont">
     <div class="image-wrapper">
         <img src="img/3-space (1).jpg" id="astro" alt="3 peeps" />
-     
-    
         <a asp-area="" asp-controller="Home" asp-action="ProductsPage">SHOP WITH US</a>
-      
     </div>
 </div>
-<div class="container">
-<h1>Most Purchased Products</h1>
-@for (int i = 0; i < 12; i += 4)
-{
-    <img src="@ViewBag.MostPurchasedProducts[i]" />
-    <p>Product ID: @ViewBag.MostPurchasedProducts[i+1]</p>
-    <p>Name: @ViewBag.MostPurchasedProducts[i+2]</p>
-    <p>Price: @ViewBag.MostPurchasedProducts[i+3]</p>
-}
+<div id="mostHighlyRatedProducts" class="product-container">
+    <h1 style="text-align: center;">Most Highly Rated Products</h1>
+    <div class="product-row">
+        @for (int i = 0; i < ViewBag.MostHighlyRatedProducts.Count; i += 4)
+        {
+            <div class="product-box">
+                <div class="image-container">
+                    <img src="@ViewBag.MostHighlyRatedProducts[i]" />
+                </div>
+                <div class="product-details">
+                    <p class="product-name">@ViewBag.MostHighlyRatedProducts[i + 2]</p>
+                    <p class="price">$@ViewBag.MostHighlyRatedProducts[i + 3].00</p>
+                </div>
+            </div>
+        }
+    </div>
 </div>
-<div class="container">
-<h1>Most Highly Rated Products</h1>
-@for (int i = 0; i < 12; i += 4)
-{
-    <img src="@ViewBag.MostHighlyRatedProducts[i]" />
-    <p>Product ID: @ViewBag.MostHighlyRatedProducts[i+1]</p>
-    <p>Name: @ViewBag.MostHighlyRatedProducts[i+2]</p>
-    <p>Price: @ViewBag.MostHighlyRatedProducts[i+3]</p>
-}
+
+<div id="mostPurchasedProducts" class="product-container">
+    <h1 style="text-align: center;">Most Purchased Products</h1>
+    <div class="product-row">
+        @for (int i = 0; i < ViewBag.MostPurchasedProducts.Count; i += 4)
+        {
+            <div class="product-box">
+                <div class="image-container">
+                    <img src="@ViewBag.MostPurchasedProducts[i]" />
+                </div>
+                <div class="product-details">
+                    <p class="product-name">@ViewBag.MostPurchasedProducts[i + 2]</p>
+                    <p class="price">$@ViewBag.MostPurchasedProducts[i + 3].00</p>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
 
 
 <vc:footer-types></vc:footer-types>
+

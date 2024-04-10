@@ -20,7 +20,8 @@ html {
 body {
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     background: var(--secondary);
     font-family: "Poppins", sans-serif;
     display: flex;
@@ -33,15 +34,21 @@ body {
     --my-pink: #E65C77; /*MAIN TEXT COLOR*/
     --my-yellow: #FDE96D;
     --secondary: white; /*BACKGROUND COLOR*/
+    --black: #a3233c;
+    --img-back: #e8e8e8;
     --morning-text-color: #518ac5;
     --afternoon-text-color: #3c5190;
     --evening-text-color: #ff8430;
     --night-text-color: #100f57;
+    --hover: #b40729;
 }
 .dark-theme {
     --my-pink: #f69aac;
-    --secondary: #141313;
+    --secondary: #161616;
     --night-text-color: white;
+    --black: white;
+    --img-back: #1f1d1d;
+    --hover: #f4b8c3
 }
 
 /*Fonts*/
@@ -242,7 +249,7 @@ nav ul {
 @keyframes slideIn {
     from {
         transform: translateY(-20%);
-        opacity: 0;
+        opacity: 0.5;
     }
 
     to {
@@ -269,7 +276,7 @@ nav ul {
 
 .image-cont {
     max-width: 100%;
-    max-height: 600px; /* Adjust this value to your desired height */
+    max-height: 400px; /* Adjust this value to your desired height */
     overflow: hidden; /* This ensures that the image does not overflow its container */
     display: flex; /* Use flexbox to vertically center the image */
     align-items: flex-start;
@@ -339,7 +346,7 @@ footer {
     text-align: center;
     font-family: "Poppins";
     font-weight: 900;
-    position: fixed;
+    position: relative;
     width: 100%;
 }
 .feets {
@@ -404,7 +411,7 @@ footer {
 
 .footer-links a {
     text-decoration: none; /* Remove underline from links */
-    color: #333; /* Set link color */
+    color: var(--black); /* Set link color */
 }
 
 .sky {
@@ -455,9 +462,135 @@ footer {
     padding: 0;
     font: inherit;
     outline: inherit;
+    color: #a3233c;
+    text-transform: uppercase;
 }
 
     .logout-btn:hover {
         text-decoration: none;
-        color: red;
+        color: var(--link);
     }
+
+
+/* For Webkit browsers (such as Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--secondary); /* Color of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b7b7b7; /* Color of the scrollbar thumb */
+    height: 40px;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        width: 8px;
+        background: var(--my-pink); /* Color of the scrollbar thumb on hover */
+    }
+
+
+/*Main page recommendations*/
+.product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    color: var(--my-pink)
+}
+
+    .product-container h1 {
+        font-size: 1.5vw;
+        text-transform: uppercase;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+.product-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.product-box {
+    width: calc(33.33% - 20px); /* Adjust as needed */
+    margin-bottom: 20px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    opacity: 0; /* Initially hide the product boxes */
+    transition: opacity 0.5s ease; /* Add a transition for opacity */
+}
+
+    .product-box img {
+        width: 100%;
+        height: 300px;
+        background-color: var(--img-back);
+        /* Optional: Add border around images */
+        border-radius: 10px; /* Optional: Add border radius for rounded corners */
+    }
+
+.image-container {
+    flex: 1; /* Image container takes up remaining space */
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center;
+}
+
+    .image-container img {
+        max-width: 100%; /* Ensure image fits within container */
+        max-height: 100%; /* Ensure image fits within container */
+        object-fit: contain;
+    }
+
+.product-details {
+    padding: 10px; /* Optional: Add padding for product details */
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 0.5px;
+    margin-top: 14px
+}
+
+.price {
+    font-weight: 700;
+    color: var(--black);
+}
+
+.product-row .product-box:nth-child(odd) {
+    animation: fadeInOdd 2.5s ease forwards;
+}
+
+.product-row .product-box:nth-child(even) {
+    animation: fadeInEven 2.5s ease forwards;
+}
+
+@keyframes fadeInOdd {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInEven {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

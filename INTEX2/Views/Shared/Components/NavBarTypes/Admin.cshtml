@@ -15,22 +15,9 @@
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Add</a></li>
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit">Logout</button>
+                <button class="logout-btn">Logout</button>
             </form>
         </li>
-
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <li>
-                <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out</a>
-            </li>
-        }
-        else
-        {
-            <li>
-                <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in</a>
-            </li>
-        }
     </ul>
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
