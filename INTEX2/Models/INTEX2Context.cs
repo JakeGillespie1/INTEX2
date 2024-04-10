@@ -16,6 +16,8 @@ public partial class INTEX2Context : DbContext
     }
     public DbSet<AppUser> Users { get; set; }
 
+    public virtual DbSet<AuthUserRecommendation> AuthUserRecommendations { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
@@ -28,10 +30,25 @@ public partial class INTEX2Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:myfreeintex2sqlserver.database.windows.net,1433;Initial Catalog=INTEX2db;Persist Security Info=False;User ID=jake123gillespie;Password=db65!xC#I<3You:);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
+    => optionsBuilder.UseSqlServer("Server=tcp:myfreeintex2sqlserver.database.windows.net,1433;Initial Catalog=INTEX2db;Persist Security Info=False;User ID=jake123gillespie;Password=db65!xC#I<3You:);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AuthUserRecommendation>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("AuthUserRecommendation");
+
+            entity.HasIndex(e => e.Index, "ix_AuthUserRecommendation_index");
+
+            entity.Property(e => e.IfYouBought).IsUnicode(false);
+            entity.Property(e => e.Rec1).IsUnicode(false);
+            entity.Property(e => e.Rec2).IsUnicode(false);
+            entity.Property(e => e.Rec3).IsUnicode(false);
+        });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.CategoryId).HasName("PK__Categori__19093A2B0ED9CCD6");
