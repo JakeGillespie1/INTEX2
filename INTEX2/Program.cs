@@ -54,6 +54,12 @@ internal class Program
         //Register Custom Tools and User Classes with the program.
         builder.Services.AddScoped<Tools>();
         builder.Services.AddScoped<IINTEX2Repository, EFINTEX2Repository>();
+        builder.Services.AddRazorPages();
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession();
+
+        builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+        builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         var app = builder.Build();
 
@@ -71,6 +77,8 @@ internal class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+
+        app.UseSession();
 
         app.UseRouting();
 

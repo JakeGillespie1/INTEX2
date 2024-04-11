@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using System.Security.Principal
+@using INTEX2.Infrastructure
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
+@model Product
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,7 +45,13 @@
         <div class="paragraph">
             <p class="desc">@Model.Description</p>
         </div>
-        
+        <form id="@Model.ProductId" method="post" asp-page="/Cart">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="btn float-end">Add to cart</button>
+        </form>
+
+       
     </div>
 </div>
 

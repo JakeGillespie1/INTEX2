@@ -4,36 +4,22 @@
 @{
 }
 
-@* default *@
-
 <nav class="nav-main">
     <a asp-area="" asp-controller="Home" asp-action="Index">
         <img src="~/img/new-aur.png" alt="Logo" class="logo">
     </a>
     <ul class="fade-in">
         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-        
+        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Shop</a></li>
-
-        <li>
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button>Logout</button>
-            </form>
-        </li>
-
-        <li><a href="/Cart">Cart</a></li>
+        <li><a href="#">Cart</a></li>
     </ul>
-
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
         {
             <h1>Good @ViewBag.TimeOfDay, Admin</h1>
         }
-        else if (User.IsInRole("Manager"))
-        {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
-        }
-        else if (User.IsInRole("Member"))
+        else if (User.IsInRole("Manager") || User.IsInRole("Member"))
         {
             <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
         }
@@ -41,6 +27,7 @@
         {
             <h1>Good @ViewBag.TimeOfDay</h1>
         }
+
         @{
             // Construct the image source URL based on the time of day
             string imageFileName = "sky-" + ViewBag.TimeOfDay.ToLower() + ".png";
@@ -54,5 +41,3 @@
 </nav>
 
 
-
-@* <li><a asp-area="" asp-controller="Home" asp-action="Secrets">Blah</a></li> *@
