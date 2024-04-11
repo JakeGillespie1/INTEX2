@@ -91,6 +91,24 @@ namespace INTEX2.Models
             return _context.Products.FirstOrDefault(p => p.ProductId == id);
         }
 
+        public List<Product> GetProductRecs(string rec1, string rec2, string rec3)
+        {
+            var recommendations = new List<Product>
+            {
+                _context.Products
+                .FirstOrDefault(x => x.Name == rec1),
+
+                _context.Products
+                .FirstOrDefault(x => x.Name == rec2),
+
+                _context.Products
+                .FirstOrDefault(p => p.Name == rec3),
+            };
+
+            return (recommendations);
+            
+        }
+
     }
 }
 

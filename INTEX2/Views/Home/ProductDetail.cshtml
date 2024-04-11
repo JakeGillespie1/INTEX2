@@ -45,10 +45,18 @@
         <h3>Recommendations</h3>
         @if (ViewBag.Recommendations != null)
         {
-            <p>Rec1: @ViewBag.Recommendations.Rec1</p>
-            <p>Rec2: @ViewBag.Recommendations.Rec2</p>
-            <p>Rec3: @ViewBag.Recommendations.Rec3</p>
+            var recommendationsList = ViewBag.Recommendations as List<Product>;
+            foreach (var item in recommendationsList)
+            {
+                // Access each item here
+                <img src=@item.ImgLink></img>
+                <p>@item.Name</p>
+                <p>@item.ProductId</p>
+
+                // stop here for control z
+            }
         }
+
     </div>
 </div>
 
