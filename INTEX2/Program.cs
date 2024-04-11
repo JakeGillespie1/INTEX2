@@ -19,6 +19,8 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using System.Configuration;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 internal class Program
 {
@@ -61,6 +63,12 @@ internal class Program
         builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+        ////Register ONNX runtime model
+        //const string modelPath = "gradient_boost_model.onnx";
+        //builder.Services.AddSingleton<InferenceSession>(
+        //    new InferenceSession(modelPath)
+        //    );
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -82,9 +90,53 @@ internal class Program
 
         app.UseRouting();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        //CSP Header and extra security stuff
+        app.Use(async (context, next) =>
+        {
+            // Define the base CSP directive.
+            var csp = "default-src 'self'; " +
+                      "script-src 'self' 'unsafe-inline' https://apis.google.com; " +
+                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+                      "img-src 'self' https://inteximg.s3.amazonaws.com; " +
+                      "font-src 'self' https://fonts.gstatic.com; ";
+
+            // Modify CSP for development environment.
+            if (context.Request.Host.Host.Contains("localhost"))
+            {
+                csp += "connect-src 'self' ws://localhost:* http://localhost:*; ";
+            }
+
+            // Append the CSP header to the response.
+            context.Response.Headers.Append("Content-Security-Policy", csp);
+
+            // This is for the extra section for 414-- we have added the X-Content-Type-Options and X-Frame-Options
+            // Add other security headers to the response.
+            // (1)  instructs browsers not to perform MIME type sniffing, reducing the risk of certain types of attacks
+            context.Response.Headers.Add("X-Content-Type-Options", "nosniff"); // 
+                                                                               // (2)  prevents the page from being embedded in frames from different origins, mitigating clickjacking attacks
+            context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+
+            await next.Invoke(); // Continue processing the request.
+        });
+
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "productDetail",
+                pattern: "product/{id}",
+                defaults: new { controller = "Home", action = "ProductDetail" }
+            );
+
+            // Additional routes can be defined here...
+
+            // Default route
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
+
+
         app.MapRazorPages();
         app.MapControllers();
         app.UseHttpsRedirection();
@@ -94,17 +146,17 @@ internal class Program
         //When we create a scope, we are able to access the services that we have configured in the identity
         using (var scope = app.Services.CreateScope())
         {
-            //Add your roles here (seeding some initial data into our system)
-            //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //Add your roles here(seeding some initial data into our system)
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            //var roles = new[] { "Admin", "Member" };
+            var roles = new[] { "Admin", "Member" };
 
-            //foreach (var role in roles)
-            //{
-            //    //Check if a role exists
-            //    if (!await roleManager.RoleExistsAsync(role))
-            //        await roleManager.CreateAsync(new IdentityRole(role));
-            //}
+            foreach (var role in roles)
+            {
+                //Check if a role exists
+                if (!await roleManager.RoleExistsAsync(role))
+                    await roleManager.CreateAsync(new IdentityRole(role));
+            }
 
         }
 
@@ -131,7 +183,6 @@ internal class Program
 
                 await userManager.AddToRoleAsync(user, "Admin");
             }
-
 
         }
         app.Run();

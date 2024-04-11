@@ -59,7 +59,7 @@ namespace INTEX2.Pages
         private void SetViewDataTimeOfDay()
         {
             var userClaim = HttpContext.User.Identity?.Name;
-            
+
 
             if (userClaim == null)
             {
@@ -68,7 +68,7 @@ namespace INTEX2.Pages
             else
             {
                 ViewData["TimeOfDay"] = _tools.GetTimeOfDay();
-                
+
             }
         }
 

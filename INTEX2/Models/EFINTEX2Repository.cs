@@ -102,11 +102,23 @@ namespace INTEX2.Models
                 .FirstOrDefault(x => x.Name == rec2),
 
                 _context.Products
-                .FirstOrDefault(p => p.Name == rec3),
+                .FirstOrDefault(x => x.Name == rec3),
             };
 
             return (recommendations);
             
+        }
+
+        public void AddFraudPredictionToOrder(int orderId)
+        {
+            var rowToModify = _context.Orders.SingleOrDefault(x => x.OrderId == orderId);
+            rowToModify.Fraud = 1;
+            _context.SaveChanges();
+        }
+
+        public void AddOrder(Order order)
+        {
+            _context.Orders.Add(order);
         }
 
     }

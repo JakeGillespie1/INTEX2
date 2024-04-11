@@ -29,7 +29,7 @@ public partial class Order
 
     public string TypeOfCard { get; set; } = null!;
 
-    public short Fraud { get; set; }
+    public short Fraud { get; set; } = 0!;
 
     public virtual Customer Customer { get; set; } = null!;
 

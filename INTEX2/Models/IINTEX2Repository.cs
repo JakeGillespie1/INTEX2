@@ -21,6 +21,10 @@ namespace INTEX2.Models
 
         public List<Product> GetProductRecs(string rec1, string rec2, string rec3);
 
+        public void AddOrder(Order order);
+
+        public void AddFraudPredictionToOrder(int orderId);
+
         Product GetProductById(int id);
     }
 }
