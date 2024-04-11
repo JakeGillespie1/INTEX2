@@ -17,42 +17,39 @@
 
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button>Logout</button>
+                <button class="logout-btn">Logout</button>
             </form>
         </li>
 
         <li><a href="/Cart">Cart</a></li>
     </ul>
 
-    <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
-        @if (User.IsInRole("Admin"))
+@{
+    string imageUrl = null; // Declare imageUrl variable outside the if block
+}
+
+<div class="greeting @(ViewBag.TimeOfDay?.ToLower())">
+    @if (ViewBag.TimeOfDay != null)
+    {
+        <h1>Good @(ViewBag.TimeOfDay), @(ViewBag.UserName?.Split(" ")[0])</h1>
         {
-            <h1>Good @ViewBag.TimeOfDay, Admin</h1>
-        }
-        else if (User.IsInRole("Manager"))
-        {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
-        }
-        else if (User.IsInRole("Member"))
-        {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
-        }
-        else
-        {
-            <h1>Good @ViewBag.TimeOfDay</h1>
-        }
-        @{
             // Construct the image source URL based on the time of day
             string imageFileName = "sky-" + ViewBag.TimeOfDay.ToLower() + ".png";
-            string imageUrl = Url.Content("~/img/" + imageFileName);
+            imageUrl = Url.Content("~/img/" + imageFileName); // Assign value to imageUrl
         }
 
         <div class="greeting-image-container">
             <img src="@imageUrl" class="sky-img" id="iconf" />
         </div>
-    </div>
+    }
+    else
+    {
+        <h1>Good day!</h1>
+    }
+</div>
+
+
 </nav>
 
 
 
-@* <li><a asp-area="" asp-controller="Home" asp-action="Secrets">Blah</a></li> *@

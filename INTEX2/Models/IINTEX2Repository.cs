@@ -13,10 +13,13 @@ namespace INTEX2.Models
         IQueryable<Order> Orders { get; }
 
         IQueryable<LineItem> LineItems { get; }
+        IQueryable<ProductBasedRecommendation> ProductBasedRecommendations { get; }
 
         public IEnumerable<object> GetMostPurchasedProducts();
 
         public IEnumerable<object> GetTopRatedProducts();
+
+        public List<Product> GetProductRecs(string rec1, string rec2, string rec3);
 
         public void AddOrder(Order order);
 

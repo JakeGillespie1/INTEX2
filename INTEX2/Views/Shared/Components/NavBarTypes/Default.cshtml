@@ -4,6 +4,7 @@
 @{
 }
 
+
 <nav class="nav-main">
     <a asp-area="" asp-controller="Home" asp-action="Index">
         <img src="~/img/new-aur.png" alt="Logo" class="logo">
@@ -14,6 +15,9 @@
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Shop</a></li>
         <li><a href="#">Cart</a></li>
     </ul>
+
+    <vc:cart-summary />
+
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
         {

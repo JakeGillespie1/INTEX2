@@ -1,10 +1,8 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Principal
 
-@* default *@
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 <nav class="nav-main">
     <a asp-area="" asp-controller="Home" asp-action="Index">
@@ -12,28 +10,21 @@
     </a>
     <ul class="fade-in">
         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-        
-        <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Shop</a></li>
-
+        <li><a asp-area="" asp-controller="Home" asp-action="Secrets">Secrets</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Products</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Add</a></li>
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button>Logout</button>
+                <button class="logout-btn">Logout</button>
             </form>
         </li>
-
-        <li><a href="/Cart">Cart</a></li>
     </ul>
-
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
         {
             <h1>Good @ViewBag.TimeOfDay, Admin</h1>
         }
-        else if (User.IsInRole("Manager"))
-        {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
-        }
-        else if (User.IsInRole("Member"))
+        else if (User.IsInRole("Manager") || User.IsInRole("Member"))
         {
             <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
         }
@@ -41,6 +32,7 @@
         {
             <h1>Good @ViewBag.TimeOfDay</h1>
         }
+
         @{
             // Construct the image source URL based on the time of day
             string imageFileName = "sky-" + ViewBag.TimeOfDay.ToLower() + ".png";
@@ -54,5 +46,3 @@
 </nav>
 
 
-
-@* <li><a asp-area="" asp-controller="Home" asp-action="Secrets">Blah</a></li> *@

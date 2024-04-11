@@ -1,0 +1,89 @@
+﻿@page
+
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Principal
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@model INTEX2.Pages.CartModel
+@{
+}
+
+@{
+    string userRole = "Default"; // Default role
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="User"></vc:nav-bar-types>
+
+<div class="cart">
+    <h1>Cart</h1>
+
+    <table class="cart-table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
+            {
+                <tr>
+                    <td class="text-left">@l.Product.Name</td>
+                    <td>@l.Quantity</td>
+                    <td>@l.Product.Price</td>
+                    <td>@((l.Quantity * l.Product.Price).ToString("c"))</td>
+                    <td class="text-center">
+                        <form asp-page-handler="Remove" method="post">
+                            <input type="hidden" name="ProductId" value="@l.Product.ProductId" />
+                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                            <button type="submit" class="btn btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">@Model.Cart?.CalculateTotal().ToString("c")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-center">
+        <a class="btn" href="@Model.ReturnUrl">Continue Shopping</a>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<vc:footer-types></vc:footer-types>
