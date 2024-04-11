@@ -119,7 +119,7 @@ namespace INTEX2.Controllers
             if (!pageSize.HasValue)
             {
                 // Set default page size
-                pageSize = 5;
+                pageSize = 10;
             }
 
             // Calculate the number of items to skip
@@ -163,6 +163,29 @@ namespace INTEX2.Controllers
             }
         }
 
+        public IActionResult ProductDetail(int id)
+        {
+            // Retrieve product details from database or other data source
+            var product = _repo.GetProductById(id);
+
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                return View("ProductDetail", product);
+            }
+            else
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+
+                return View("ProductDetail", product);
+            }
+            // Pass product model to ProductDetail.cshtml view
+            
+        }
 
 
         public IActionResult About()

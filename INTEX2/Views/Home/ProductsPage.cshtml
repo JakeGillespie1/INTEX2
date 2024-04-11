@@ -9,7 +9,26 @@
 
 @model IEnumerable<Product>
 
-<vc:nav-bar-types id="navBar" user="Default"></vc:nav-bar-types>
+@{
+    string userRole = "Default"; // Default role
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
+
+
+
 <div class="object-container">
     <div class="title-container">
         <div class="page-title">
@@ -24,14 +43,15 @@
     </div>
 
     <div class="object-row">
-        <div class="fade-in"
         @foreach (var obj in Model)
         {
             <div class="object-wrapper">
                 <!-- Display image -->
                 <div class="object-box">
                     <div class="object-image-container">
-                        <img src="@obj.ImgLink" alt="Object Image">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = obj.ProductId })">
+                            <img src="@obj.ImgLink" alt="Object Image">
+                        </a>
                     </div>
                 </div>
 
@@ -42,14 +62,19 @@
                         <li class="year">Year: @obj.Year</li>
                         <li>@obj.NumParts Pieces</li>
                         <li class="price">$@obj.Price.00</li>
-                       
+                        <!-- Removed the individual link for "View Details" -->
                     </ul>
+                    <!-- Moved the link outside the unordered list -->
+                    <div class="deets">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = obj.ProductId })" class="view-details-link">View Details</a>
+                        </div>
+
                 </div>
             </div>
         }
-        </div>
-
     </div>
+
+
     <div class="pagination-bottom">
         @if (ViewBag.CurrentPage > 1)
         {

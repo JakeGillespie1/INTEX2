@@ -10,8 +10,8 @@ namespace INTEX2.Models
     {
         private readonly INTEX2Context _context;
 
-        public EFINTEX2Repository(INTEX2Context temp) 
-        { 
+        public EFINTEX2Repository(INTEX2Context temp)
+        {
             _context = temp;
         }
 
@@ -84,6 +84,10 @@ namespace INTEX2.Models
                 .ToList();
 
             return topProductsHighestRating;
+        }
+        public Product GetProductById(int id)
+        {
+            return _context.Products.FirstOrDefault(p => p.ProductId == id);
         }
 
     }

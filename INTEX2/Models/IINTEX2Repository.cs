@@ -17,5 +17,7 @@ namespace INTEX2.Models
         public IEnumerable<object> GetMostPurchasedProducts();
 
         public IEnumerable<object> GetTopRatedProducts();
+
+        Product GetProductById(int id);
     }
 }

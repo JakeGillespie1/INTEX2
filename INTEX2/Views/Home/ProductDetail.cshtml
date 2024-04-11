@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Principal
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@{
+    string userRole = "Default"; // Default role
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
+
+
+<div class="detail-container">
+    <div class="detail-image">
+        <!-- Image goes here -->
+        <img src="@Model.ImgLink" alt="@Model.Name">
+    </div>
+    <div class="detail-info">
+        <!-- Information goes here -->
+        <h2>@Model.Name</h2>
+        <p class="ita">Year: @Model.Year</p>
+        <p>@Model.NumParts Pieces</p>
+        <p>$@Model.Price.00</p>
+        <div class="paragraph">
+            <p class="desc">@Model.Description</p>
+        </div>
+        
+    </div>
+</div>
+
+
+<vc:footer-types></vc:footer-types>

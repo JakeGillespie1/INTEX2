@@ -84,7 +84,6 @@
  
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-
     <script>
         // Function to toggle dark mode
         function toggleDarkMode() {
@@ -117,6 +116,7 @@
         // Add click event listener to dark mode button
         document.getElementById("iconf").addEventListener("click", toggleDarkMode);
     </script>
+
 
 
     @await RenderSectionAsync("Scripts", required: false)
