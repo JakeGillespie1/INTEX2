@@ -6,10 +6,6 @@
 
 @model Product
 
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
-
 @{
     string userRole = "Default"; // Default role
 
@@ -35,37 +31,49 @@
     </div>
     <div class="detail-info">
         <!-- Information goes here -->
-        <h2>@Model.Name</h2>
+        <h2>@Model.Name</h2>         
+        
+        <form id="@Model.ProductId" method="post" asp-page="/Cart" class="stuff">
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <button type="submit" class="add-to-cart">Add to cart</button>
+        </form>
         <p class="ita">Year: @Model.Year</p>
         <p>@Model.NumParts Pieces</p>
-        <p>$@Model.Price.00</p>
-        <div class="paragraph">
+        <p class="price">$@Model.Price.00</p>
+        <div class="paragraph scrollable-description">
             <p class="desc">@Model.Description</p>
         </div>
 
-        <!-- Display recommendations -->
-        <h3>Recommendations</h3>
-        @if (ViewBag.Recommendations != null)
-        {
-            var recommendationsList = ViewBag.Recommendations as List<Product>;
-            foreach (var item in recommendationsList)
-            {
-                // Access each item here
-                <img src=@item.ImgLink></img>
-                <p>@item.Name</p>
-                <p>@item.ProductId</p>
+        <!-- Recommendations -->
+        <div class="recs">
+            <div class="recs-container">
+                <div class="recs-title">
+                    <h3>You may also like</h3>
+                </div>
 
-                // stop here for control z
-            }
-        }
+                <div class="recommendations-container">
+                    @if (ViewBag.Recommendations != null)
+                    {
+                        var recommendationsList = ViewBag.Recommendations as List<Product>;
+                        foreach (var item in recommendationsList)
+                        {
+                            <div class="recommendation">
+                                <a href="@Url.Action("ProductDetail", "Home", new { id = item.ProductId })">
+                                    <img src="@item.ImgLink" alt="@item.Name">
+                                </a>
+                                <p>@item.Name</p>
+                                <p class="price">$@item.Price.00</p>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
 
-        <form id="@Model.ProductId" method="post" asp-page="/Cart">
-            <input type="hidden" asp-for="ProductId" />
-            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-            <button type="submit" class="btn float-end">Add to cart</button>
-        </form>
 
-       
+        <!-- Add to cart form -->
+
     </div>
 </div>
 

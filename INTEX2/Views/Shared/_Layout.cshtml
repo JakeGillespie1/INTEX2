@@ -67,6 +67,20 @@
         </main>
     </div>
 
+  
+
+    <!-- Ashley is playing around with some stuff for cookie ;)-->
+    @if (!Context.Request.Cookies.ContainsKey("CookieConsent"))
+    {
+        <div id="cookieConsentBanner" class="cookie-consent-banner">
+            <p>
+                We use cookies to improve your experience on our site. By using our site, you consent to cookies.
+                <a href="/privacy">Learn more</a>
+            </p>
+            <button id="acceptCookieBtn" class="cookie-btn">Accept</button>
+        </div>
+    }
+
 
 
 
@@ -117,6 +131,30 @@
 
         // Add click event listener to dark mode button
         document.getElementById("iconf").addEventListener("click", toggleDarkMode);
+
+        function hideCookieConsent() {
+            var consentBanner = document.getElementById("cookieConsentBanner");
+            if (consentBanner) { // Check if the banner exists to avoid any null reference
+                consentBanner.style.display = "none"; // Hide the cookie consent banner
+                document.cookie = "CookieConsent=true; path=/; max-age=31536000"; // 1 year
+                // Optionally remove the banner from the DOM
+                consentBanner.parentNode.removeChild(consentBanner);
+            }
+        }
+
+        // Event listener for the accept button
+        document.addEventListener("DOMContentLoaded", function () {
+            var acceptButton = document.getElementById("acceptCookieBtn");
+            if (acceptButton) { // Check if the accept button exists to avoid any null reference
+                acceptButton.addEventListener("click", hideCookieConsent); // Attach event listener
+            }
+
+            // Show the cookie consent banner initially
+            var consentBanner = document.getElementById("cookieConsentBanner");
+            if (consentBanner) { // Check if the banner exists to avoid any null reference
+                consentBanner.style.display = "block";
+            }
+        });
     </script>
 
 

@@ -28,6 +28,27 @@
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
 
+<form method="get" asp-action="ProductsPage">
+    <label for="color">Color:</label>
+    <select name="color" id="color">
+        @foreach (var option in ViewBag.ColorOptions)
+        {
+            <option value="@option.Value" selected="@option.Selected">@option.Text</option>
+        }
+    </select>
+
+    <label for="category">Category:</label>
+    <select name="category" id="category">
+        @foreach (var option in ViewBag.CategoryOptions)
+        {
+            <option value="@option.Value" selected="@option.Selected">@option.Text</option>
+        }
+    </select>
+
+    <button type="submit">Apply Filters</button>
+</form>
+
+
 
 <div class="object-container">
     <div class="title-container">
