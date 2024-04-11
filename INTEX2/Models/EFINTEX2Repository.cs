@@ -102,7 +102,7 @@ namespace INTEX2.Models
                 .FirstOrDefault(x => x.Name == rec2),
 
                 _context.Products
-                .FirstOrDefault(p => p.Name == rec3),
+                .FirstOrDefault(x => x.Name == rec3),
             };
 
             return (recommendations);
