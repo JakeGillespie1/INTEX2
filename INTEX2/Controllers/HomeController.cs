@@ -11,6 +11,7 @@ using Microsoft.ML;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using Azure.Security.KeyVault.Certificates;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Shared;
 
 
 namespace INTEX2.Controllers
@@ -116,17 +117,36 @@ namespace INTEX2.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Member,Admin")]
         public IActionResult Cart(string CartTotal)
         {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null) 
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+
             ViewBag.CartTotal = CartTotal;
             return View("Checkout");
         }
 
         [HttpPost]
-        [Authorize(Roles = "Member,Admin")]
-        public IActionResult CheckoutCart(Order order)
+        public IActionResult CheckoutCart()
         {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+
+            if (userClaim == null)
+            {
+                return RedirectToPage("/Account/Login", new { area = "Identity" });
+            }
+
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
             return View();
         }
 
