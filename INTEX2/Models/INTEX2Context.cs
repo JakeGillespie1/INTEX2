@@ -28,10 +28,11 @@ public partial class INTEX2Context : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<ProductBasedRecommendation> ProductBasedRecommendations { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-    => optionsBuilder.UseSqlServer("Server=tcp:myfreeintex2sqlserver.database.windows.net,1433;Initial Catalog=INTEX2db;Persist Security Info=False;User ID=jake123gillespie;Password=db65!xC#I<3You:);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
-
+        => optionsBuilder.UseSqlServer("Server=tcp:myfreeintex2sqlserver.database.windows.net,1433;Initial Catalog=INTEX2db;Persist Security Info=False;User ID=jake123gillespie;Password=db65!xC#I<3You:);MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -188,6 +189,18 @@ public partial class INTEX2Context : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("secondary_color");
             entity.Property(e => e.Year).HasColumnName("year");
+        });
+
+        modelBuilder.Entity<ProductBasedRecommendation>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.HasIndex(e => e.ProductId, "ix_ProductBasedRecommendations_ProductID");
+
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.Rec1).IsUnicode(false);
+            entity.Property(e => e.Rec2).IsUnicode(false);
+            entity.Property(e => e.Rec3).IsUnicode(false);
         });
 
         OnModelCreatingPartial(modelBuilder);
