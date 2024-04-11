@@ -40,7 +40,7 @@ namespace INTEX2.Models
                         Rating = li.Rating,
                         Quantity = li.Qty,
                     })
-                .GroupBy(result => new { result.ProductID, result.Name, result.ImgLink, result.Price})
+                .GroupBy(result => new { result.ProductID, result.Name, result.ImgLink, result.Price })
                 .Select(g => new
                 {
                     TopProdId = g.Key.ProductID,

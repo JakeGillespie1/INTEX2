@@ -117,7 +117,7 @@ namespace INTEX2.Controllers
 
         public IActionResult ProductsPage()
         {
-           /* int pageSize = 5;*/ //eventualy have the user able to do this 
+            /* int pageSize = 5;*/ //eventualy have the user able to do this 
 
             var productData = _repo.Products
                 .OrderBy(x => x.ProductId);
@@ -137,7 +137,7 @@ namespace INTEX2.Controllers
 
                 return View(productData);
             }
-            
+
         }
 
         public IActionResult About()
