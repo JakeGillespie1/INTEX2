@@ -24,6 +24,7 @@ namespace INTEX2.Models
         public IQueryable<Order> Orders => _context.Orders;
 
         public IQueryable<LineItem> LineItems => _context.LineItems;
+        public IQueryable<ProductBasedRecommendation> ProductBasedRecommendations => _context.ProductBasedRecommendations;
 
         public IEnumerable<object> GetMostPurchasedProducts()
         {
@@ -88,6 +89,24 @@ namespace INTEX2.Models
         public Product GetProductById(int id)
         {
             return _context.Products.FirstOrDefault(p => p.ProductId == id);
+        }
+
+        public List<Product> GetProductRecs(string rec1, string rec2, string rec3)
+        {
+            var recommendations = new List<Product>
+            {
+                _context.Products
+                .FirstOrDefault(x => x.Name == rec1),
+
+                _context.Products
+                .FirstOrDefault(x => x.Name == rec2),
+
+                _context.Products
+                .FirstOrDefault(p => p.Name == rec3),
+            };
+
+            return (recommendations);
+            
         }
 
     }

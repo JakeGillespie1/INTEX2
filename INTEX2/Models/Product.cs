@@ -26,4 +26,5 @@ public partial class Product
     public virtual ICollection<LineItem> LineItems { get; set; } = new List<LineItem>();
 
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
+    public virtual ICollection<ProductBasedRecommendation> ProductBasedRecommendations { get; set; }
 }

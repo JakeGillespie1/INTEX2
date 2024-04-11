@@ -5,7 +5,8 @@ namespace INTEX2.Models;
 
 public partial class ProductBasedRecommendation
 {
-    public long? ProductId { get; set; }
+    // Set ProductId as the primary key
+    public int ProductId { get; set; }
 
     public string? Rec1 { get; set; }
 
@@ -13,3 +14,4 @@ public partial class ProductBasedRecommendation
 
     public string? Rec3 { get; set; }
 }
+

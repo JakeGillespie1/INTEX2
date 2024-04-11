@@ -6,11 +6,9 @@
 
 @model Product
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @{
     string userRole = "Default"; // Default role
@@ -30,7 +28,6 @@
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
-
 <div class="detail-container">
     <div class="detail-image">
         <!-- Image goes here -->
@@ -45,6 +42,23 @@
         <div class="paragraph">
             <p class="desc">@Model.Description</p>
         </div>
+
+        <!-- Display recommendations -->
+        <h3>Recommendations</h3>
+        @if (ViewBag.Recommendations != null)
+        {
+            var recommendationsList = ViewBag.Recommendations as List<Product>;
+            foreach (var item in recommendationsList)
+            {
+                // Access each item here
+                <img src=@item.ImgLink></img>
+                <p>@item.Name</p>
+                <p>@item.ProductId</p>
+
+                // stop here for control z
+            }
+        }
+
         <form id="@Model.ProductId" method="post" asp-page="/Cart">
             <input type="hidden" asp-for="ProductId" />
             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
@@ -54,6 +68,5 @@
        
     </div>
 </div>
-
 
 <vc:footer-types></vc:footer-types>
