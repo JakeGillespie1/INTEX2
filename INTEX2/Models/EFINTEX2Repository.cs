@@ -90,6 +90,18 @@ namespace INTEX2.Models
             return _context.Products.FirstOrDefault(p => p.ProductId == id);
         }
 
+        public void AddFraudPredictionToOrder(int orderId)
+        {
+            var rowToModify = _context.Orders.SingleOrDefault(x => x.OrderId == orderId);
+            rowToModify.Fraud = 1;
+            _context.SaveChanges();
+        }
+
+        public void AddOrder(Order order)
+        {
+            _context.Orders.Add(order);
+        }
+
     }
 }
 

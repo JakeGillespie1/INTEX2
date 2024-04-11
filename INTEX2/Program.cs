@@ -19,6 +19,8 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.DotNet.Scaffolding.Shared.ProjectModel;
 using System.Configuration;
+using Microsoft.ML.OnnxRuntime;
+using Microsoft.ML.OnnxRuntime.Tensors;
 
 internal class Program
 {
@@ -55,6 +57,12 @@ internal class Program
         builder.Services.AddScoped<Tools>();
         builder.Services.AddScoped<IINTEX2Repository, EFINTEX2Repository>();
 
+        ////Register ONNX runtime model
+        //const string modelPath = "gradient_boost_model.onnx";
+        //builder.Services.AddSingleton<InferenceSession>(
+        //    new InferenceSession(modelPath)
+        //    );
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -74,6 +82,25 @@ internal class Program
 
         app.UseRouting();
 
+        app.Use(async (context, next) =>
+        {
+            var csp = "default-src 'self'; " +
+                      "script-src 'self' 'unsafe-inline' https://apis.google.com; " + // Added 'unsafe-inline', consider using nonces or hashes instead
+                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " + // Added Google Fonts
+                      "img-src 'self' https://inteximg.s3.amazonaws.com; " +
+                      "font-src 'self' https://fonts.gstatic.com; "; // Added Google Fonts
+
+            // Apply only in development environment
+            if (context.Request.Host.Host.Contains("localhost"))
+            {
+                csp += "connect-src 'self' ws://localhost:* http://localhost:*; ";
+            }
+
+            context.Response.Headers.Append("Content-Security-Policy", csp);
+            await next();
+        });
+
+
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -86,17 +113,17 @@ internal class Program
         //When we create a scope, we are able to access the services that we have configured in the identity
         using (var scope = app.Services.CreateScope())
         {
-            //Add your roles here (seeding some initial data into our system)
-            //var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            //Add your roles here(seeding some initial data into our system)
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            //var roles = new[] { "Admin", "Member" };
+            var roles = new[] { "Admin", "Member" };
 
-            //foreach (var role in roles)
-            //{
-            //    //Check if a role exists
-            //    if (!await roleManager.RoleExistsAsync(role))
-            //        await roleManager.CreateAsync(new IdentityRole(role));
-            //}
+            foreach (var role in roles)
+            {
+                //Check if a role exists
+                if (!await roleManager.RoleExistsAsync(role))
+                    await roleManager.CreateAsync(new IdentityRole(role));
+            }
 
         }
 
@@ -123,7 +150,6 @@ internal class Program
 
                 await userManager.AddToRoleAsync(user, "Admin");
             }
-
 
         }
         app.Run();

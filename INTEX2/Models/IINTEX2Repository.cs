@@ -18,6 +18,10 @@ namespace INTEX2.Models
 
         public IEnumerable<object> GetTopRatedProducts();
 
+        public void AddOrder(Order order);
+
+        public void AddFraudPredictionToOrder(int orderId);
+
         Product GetProductById(int id);
     }
 }
