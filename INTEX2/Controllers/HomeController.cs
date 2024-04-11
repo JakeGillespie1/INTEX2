@@ -199,8 +199,6 @@ namespace INTEX2.Controllers
             // Pass product model to ProductDetail.cshtml view
         }
 
-        // stop here for control z
-
         public IActionResult About()
         {
 
