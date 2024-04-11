@@ -165,8 +165,12 @@ namespace INTEX2.Controllers
 
         public IActionResult ProductDetail(int id)
         {
-            // Retrieve product details from database or other data source
+            // Retrieve product details from database
             var product = _repo.GetProductById(id);
+
+            // Retrieve recommendations for the product
+            var recommendations = _repo.ProductBasedRecommendations
+                .FirstOrDefault(pr => pr.ProductId == id);
 
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
@@ -174,18 +178,19 @@ namespace INTEX2.Controllers
             if (userClaim == null)
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.Recommendations = recommendations; // Pass recommendations to the view
                 return View("ProductDetail", product);
             }
             else
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 ViewBag.UserName = user.Result?.FirstName;
-
+                ViewBag.Recommendations = recommendations; // Pass recommendations to the view
                 return View("ProductDetail", product);
             }
             // Pass product model to ProductDetail.cshtml view
-            
         }
+
 
 
         public IActionResult About()

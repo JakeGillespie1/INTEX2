@@ -4,11 +4,9 @@
 @inject UserManager<AppUser> UserManager
 
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
 
 @{
     string userRole = "Default"; // Default role
@@ -28,7 +26,6 @@
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
-
 <div class="detail-container">
     <div class="detail-image">
         <!-- Image goes here -->
@@ -43,9 +40,16 @@
         <div class="paragraph">
             <p class="desc">@Model.Description</p>
         </div>
-        
+
+        <!-- Display recommendations -->
+        <h3>Recommendations</h3>
+        @if (ViewBag.Recommendations != null)
+        {
+            <p>Rec1: @ViewBag.Recommendations.Rec1</p>
+            <p>Rec2: @ViewBag.Recommendations.Rec2</p>
+            <p>Rec3: @ViewBag.Recommendations.Rec3</p>
+        }
     </div>
 </div>
-
 
 <vc:footer-types></vc:footer-types>
