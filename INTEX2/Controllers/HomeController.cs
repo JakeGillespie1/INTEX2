@@ -114,13 +114,30 @@ namespace INTEX2.Controllers
                 return View();
             }
         }
-
-        public IActionResult ProductsPage()
+        public IActionResult ProductsPage(int page = 1, int? pageSize = null)
         {
-           /* int pageSize = 5;*/ //eventualy have the user able to do this 
+            if (!pageSize.HasValue)
+            {
+                // Set default page size
+                pageSize = 5;
+            }
 
+            // Calculate the number of items to skip
+            int skip = (page - 1) * pageSize.Value;
+
+            // Get total count of products
+            int totalProductsCount = _repo.Products.Count();
+
+            // Calculate total number of pages
+            int totalPages = (int)Math.Ceiling((double)totalProductsCount / pageSize.Value);
+
+            // Get products for the current page
             var productData = _repo.Products
-                .OrderBy(x => x.ProductId);
+                .OrderBy(x => x.ProductId)
+                .Skip(skip)
+                .Take(pageSize.Value)
+                .ToList();
+
             //Grab the user by the user's name
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
@@ -128,17 +145,25 @@ namespace INTEX2.Controllers
             if (userClaim == null)
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.TotalProductsCount = totalProductsCount;
+                ViewBag.CurrentPage = page;
+                ViewBag.PageSize = pageSize.Value;
+                ViewBag.TotalPages = totalPages;
                 return View(productData);
             }
             else
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 ViewBag.UserName = user.Result?.FirstName;
-
+                ViewBag.TotalProductsCount = totalProductsCount;
+                ViewBag.CurrentPage = page;
+                ViewBag.PageSize = pageSize.Value;
+                ViewBag.TotalPages = totalPages;
                 return View(productData);
             }
-            
         }
+
+
 
         public IActionResult About()
         {
