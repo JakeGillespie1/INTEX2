@@ -90,22 +90,33 @@ internal class Program
 
         app.UseRouting();
 
+        //CSP Header and extra security stuff
         app.Use(async (context, next) =>
         {
+            // Define the base CSP directive.
             var csp = "default-src 'self'; " +
-                      "script-src 'self' 'unsafe-inline' https://apis.google.com; " + // Added 'unsafe-inline', consider using nonces or hashes instead
-                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " + // Added Google Fonts
+                      "script-src 'self' 'unsafe-inline' https://apis.google.com; " +
+                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
                       "img-src 'self' https://inteximg.s3.amazonaws.com; " +
-                      "font-src 'self' https://fonts.gstatic.com; "; // Added Google Fonts
+                      "font-src 'self' https://fonts.gstatic.com; ";
 
-            // Apply only in development environment
+            // Modify CSP for development environment.
             if (context.Request.Host.Host.Contains("localhost"))
             {
                 csp += "connect-src 'self' ws://localhost:* http://localhost:*; ";
             }
 
+            // Append the CSP header to the response.
             context.Response.Headers.Append("Content-Security-Policy", csp);
-            await next();
+
+            // This is for the extra section for 414-- we have added the X-Content-Type-Options and X-Frame-Options
+            // Add other security headers to the response.
+            // (1)  instructs browsers not to perform MIME type sniffing, reducing the risk of certain types of attacks
+            context.Response.Headers.Add("X-Content-Type-Options", "nosniff"); // 
+                                                                               // (2)  prevents the page from being embedded in frames from different origins, mitigating clickjacking attacks
+            context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+
+            await next.Invoke(); // Continue processing the request.
         });
 
 
