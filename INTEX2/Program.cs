@@ -128,6 +128,12 @@ internal class Program
                 defaults: new { controller = "Home", action = "ProductDetail" }
             );
 
+            endpoints.MapControllerRoute(
+               name: "ProductsPage",
+               pattern: "Home/ProductsPage/{page}/{pageSize}",
+               defaults: new { controller = "Home", action = "ProductsPage" }
+           );
+
             // Additional routes can be defined here...
 
             // Default route
