@@ -10,54 +10,64 @@
 @model IEnumerable<Product>
 
 <vc:nav-bar-types id="navBar" user="Default"></vc:nav-bar-types>
+<div class="object-container">
+    <div class="title-container">
+        <div class="page-title">
+            <h1>Lego Sets</h1>
 
-<div>
-    @foreach (var p in Model)
-    {
-        <h3>@p.Name</h3>
+        </div>
+        <div class="pagination-baby">
+            <a href="@Url.Action("ProductsPage", new { pageSize = 5 })">5 items per page</a>
+            <a href="@Url.Action("ProductsPage", new { pageSize = 10 })">10 items per page</a>
+            <a href="@Url.Action("ProductsPage", new { pageSize = 20 })">20 items per page</a>
+        </div>
+    </div>
 
-        <ul>
-            <li>@p.Year</li>
-            <li>@p.NumParts</li>
-            <li>@p.Price</li>
-            <li>@p.PrimaryColor</li>
-        </ul>
-    }
+    <div class="object-row">
+        <div class="fade-in"
+        @foreach (var obj in Model)
+        {
+            <div class="object-wrapper">
+                <!-- Display image -->
+                <div class="object-box">
+                    <div class="object-image-container">
+                        <img src="@obj.ImgLink" alt="Object Image">
+                    </div>
+                </div>
+
+                <!-- Display text -->
+                <div class="object-text">
+                    <h3 class="object-name">@obj.Name</h3>
+                    <ul>
+                        <li class="year">Year: @obj.Year</li>
+                        <li>@obj.NumParts Pieces</li>
+                        <li class="price">$@obj.Price.00</li>
+                       
+                    </ul>
+                </div>
+            </div>
+        }
+        </div>
+
+    </div>
+    <div class="pagination-bottom">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a href="@Url.Action("ProductsPage", new { page = ViewBag.CurrentPage - 1, pageSize = ViewBag.PageSize })" class="pagination-button">Previous</a>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <a href="@Url.Action("ProductsPage", new { page = i, pageSize = ViewBag.PageSize })" class="pagination-button @(i == ViewBag.CurrentPage ? "current-page" : "")">@i</a>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a href="@Url.Action("ProductsPage", new { page = ViewBag.CurrentPage + 1, pageSize = ViewBag.PageSize })" class="pagination-button">Next</a>
+        }
+    </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -73,4 +83,13 @@
 
     // Update the user attribute based on whether the user is logged in
     navBar.setAttribute("user", isLoggedIn ? "User" : "Default");
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var objectWrappers = document.querySelectorAll(".object-wrapper");
+        objectWrappers.forEach(function (wrapper) {
+            wrapper.classList.add("show");
+        });
+    });
+
+
 </script>
