@@ -13,6 +13,7 @@ namespace INTEX2.Models
         IQueryable<Order> Orders { get; }
 
         IQueryable<LineItem> LineItems { get; }
+        IQueryable<ProductBasedRecommendation> ProductBasedRecommendations { get; }
 
         public IEnumerable<object> GetMostPurchasedProducts();
 

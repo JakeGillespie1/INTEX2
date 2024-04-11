@@ -191,13 +191,18 @@ public partial class INTEX2Context : DbContext
             entity.Property(e => e.Year).HasColumnName("year");
         });
 
+        modelBuilder.Entity<Product>()
+       .HasMany(p => p.ProductBasedRecommendations) // Product has many ProductBasedRecommendations
+       .WithOne() // ProductBasedRecommendation has one Product
+       .HasForeignKey(pr => pr.ProductId); // Foreign key property in ProductBasedRecommendation
+
         modelBuilder.Entity<ProductBasedRecommendation>(entity =>
         {
-            entity.HasNoKey();
+            // Define ProductId as the primary key
+            entity.HasKey(e => e.ProductId);
 
+            // Configure other properties
             entity.HasIndex(e => e.ProductId, "ix_ProductBasedRecommendations_ProductID");
-
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.Rec1).IsUnicode(false);
             entity.Property(e => e.Rec2).IsUnicode(false);
             entity.Property(e => e.Rec3).IsUnicode(false);

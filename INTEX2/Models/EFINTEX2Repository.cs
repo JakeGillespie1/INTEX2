@@ -24,6 +24,7 @@ namespace INTEX2.Models
         public IQueryable<Order> Orders => _context.Orders;
 
         public IQueryable<LineItem> LineItems => _context.LineItems;
+        public IQueryable<ProductBasedRecommendation> ProductBasedRecommendations => _context.ProductBasedRecommendations;
 
         public IEnumerable<object> GetMostPurchasedProducts()
         {
