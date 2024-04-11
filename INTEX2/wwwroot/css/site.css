@@ -65,114 +65,6 @@ body {
 }
 
 
-/*Fonts*/
-.poppins-thin {
-    font-family: "Poppins", sans-serif;
-    font-weight: 100;
-    font-style: normal;
-}
-
-.poppins-extralight {
-    font-family: "Poppins", sans-serif;
-    font-weight: 200;
-    font-style: normal;
-}
-
-.poppins-light {
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-style: normal;
-}
-
-.poppins-regular {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.poppins-medium {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.poppins-semibold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: normal;
-}
-
-.poppins-bold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-}
-
-.poppins-extrabold {
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    font-style: normal;
-}
-
-.poppins-black {
-    font-family: "Poppins", sans-serif;
-    font-weight: 900;
-    font-style: normal;
-}
-
-.poppins-thin-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 100;
-    font-style: italic;
-}
-
-.poppins-extralight-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 200;
-    font-style: italic;
-}
-
-.poppins-light-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-}
-
-.poppins-regular-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: italic;
-}
-
-.poppins-medium-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-style: italic;
-}
-
-.poppins-semibold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    font-style: italic;
-}
-
-.poppins-bold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
-    font-style: italic;
-}
-
-.poppins-extrabold-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    
-}
-
-.poppins-black-italic {
-    font-family: "Poppins", sans-serif;
-    font-weight: 900;
-    font-style: italic;
-}
 
 /* CSS */
 .nav-main {
@@ -233,18 +125,13 @@ nav ul {
                 
             }
 
-/*button {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;*/ /* Add transition effect */
-/*}
 
-    button:hover {
-        color: red;*/ /* Change color on hover */
-    /*}*/
+.cart-items {
+    font-size: 17px;
+    text-transform: uppercase;
+    color: var(--return-link);
+    font-weight: 600;
+}
 
 .fade-in {
     opacity: 1;
@@ -882,6 +769,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px; /* Adjust as needed */
+    margin-top: 20px;
 }
 
 /* Style for the image */
@@ -895,6 +783,7 @@ footer {
         height: auto;
         margin: 30px;
         border-radius: 10px; /* Add rounded corners if desired */
+        margin-top: -200px;
     }
 
 /* Style for the information */
@@ -910,6 +799,7 @@ footer {
         font-size: 24px;
         font-weight: 700;
         color: var(--my-pink);
+        margin-top: 15px;
     }
 
     .detail-info p {
@@ -943,3 +833,96 @@ footer {
 .deets {
 
 }
+
+
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: var(--img-back);
+    text-align: center;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.cookie-btn {
+
+}
+
+
+.detail-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.detail-image img {
+    max-width: 300px; /* Adjust as needed */
+}
+
+.detail-info {
+    margin-left: 20px;
+}
+
+.scrollable-description {
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto;
+
+
+
+
+}.recs {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+}
+
+.recs-container {
+    max-width: 800px; /* Adjust as needed */
+    width: 100%;
+}
+
+.recs-title {
+    text-align: center; /* Center the text */
+    margin-bottom: 10px; /* Add some space below the title */
+}
+
+.recs-title h3 {
+    margin: 0; /* Remove default margin */
+    font-size: 1.5rem; /* Adjust font size as needed */
+    color: var(--black); /* Change text color */
+}
+
+.recommendations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: var(--img-back);
+    border-radius: 25px;
+    padding: 10px
+}
+
+.recommendation {
+    flex: 0 0 calc(33.33% - 20px); /* Adjust as needed */
+    margin-right: 20px;
+    margin-bottom: 20px;
+    max-width: calc(33.33% - 20px); /* Adjust as needed */
+    text-align: center; /* Center the content */
+}
+
+    .recommendation img {
+        max-width: 100%;
+        height: auto;
+    }
+
+
+.add-to-cart {
+    background-color: var(--my-pink);
+    margin-bottom: 10px;
+    border-radius: 13px;
+    color: white;
+    text-transform: uppercase;
+    padding: 5px;
+   
+}
+
+

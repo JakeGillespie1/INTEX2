@@ -120,9 +120,29 @@ internal class Program
         });
 
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "productDetail",
+                pattern: "product/{id}",
+                defaults: new { controller = "Home", action = "ProductDetail" }
+            );
+
+            endpoints.MapControllerRoute(
+               name: "ProductsPage",
+               pattern: "Home/ProductsPage/{page}/{pageSize}",
+               defaults: new { controller = "Home", action = "ProductsPage" }
+           );
+
+            // Additional routes can be defined here...
+
+            // Default route
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
+
+
         app.MapRazorPages();
         app.MapControllers();
         app.UseHttpsRedirection();

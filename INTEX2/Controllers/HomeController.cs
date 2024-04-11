@@ -4,6 +4,7 @@ using INTEX2.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using System.Diagnostics;
@@ -11,6 +12,7 @@ using Microsoft.ML;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using Azure.Security.KeyVault.Certificates;
+using System.Drawing;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Shared;
 
 
@@ -394,53 +396,83 @@ namespace INTEX2.Controllers
                 return View();
             }
         }
-        public IActionResult ProductsPage(int page = 1, int? pageSize = null)
+        public IActionResult ProductsPage(int page = 1, int? pageSize = null, string color = null, string category = null)
         {
             if (!pageSize.HasValue)
             {
                 // Set default page size
                 pageSize = 10;
             }
+            var distinctColors = _repo.Products.Select(p => p.PrimaryColor).Distinct().ToList();
+            var distinctCategories = _repo.Categories.Select(c => c.CategoryName).Distinct().ToList();
+
+            ViewBag.ColorOptions = GetSelectOptions(distinctColors, color);
+            ViewBag.CategoryOptions = GetSelectOptions(distinctCategories, category);
+
 
             // Calculate the number of items to skip
             int skip = (page - 1) * pageSize.Value;
 
+            var productsQuery = _repo.Products.AsQueryable();
+
+            // Apply color filter if specified
+            if (!string.IsNullOrEmpty(color))
+            {
+                productsQuery = productsQuery.Where(p => p.PrimaryColor == color);
+            }
+
+            // Apply category filter if specified
+            if (!string.IsNullOrEmpty(category))
+            {
+                productsQuery = productsQuery.Where(p => p.Categories.Any(c => c.CategoryName == category));
+            }
+
+
             // Get total count of products
-            int totalProductsCount = _repo.Products.Count();
+            int totalProductsCount = productsQuery.Count();
+
 
             // Calculate total number of pages
             int totalPages = (int)Math.Ceiling((double)totalProductsCount / pageSize.Value);
 
             // Get products for the current page
-            var productData = _repo.Products
+            var productData = productsQuery
                 .OrderBy(x => x.ProductId)
                 .Skip(skip)
                 .Take(pageSize.Value)
                 .ToList();
 
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.TotalProductsCount = totalProductsCount;
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize.Value;
+            ViewBag.TotalPages = totalPages;
+            ViewBag.SelectedColor = color;
+            ViewBag.SelectedCategory = category;
             //Grab the user by the user's name
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
 
-            if (userClaim == null)
+            if (userClaim != null)
             {
-                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-                ViewBag.TotalProductsCount = totalProductsCount;
-                ViewBag.CurrentPage = page;
-                ViewBag.PageSize = pageSize.Value;
-                ViewBag.TotalPages = totalPages;
-                return View(productData);
-            }
-            else
-            {
-                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 ViewBag.UserName = user.Result?.FirstName;
-                ViewBag.TotalProductsCount = totalProductsCount;
-                ViewBag.CurrentPage = page;
-                ViewBag.PageSize = pageSize.Value;
-                ViewBag.TotalPages = totalPages;
-                return View(productData);
             }
+
+            return View(productData);
+        
+        }
+        private List<SelectListItem> GetSelectOptions(List<string> values, string selectedValue)
+        {
+            var options = new List<SelectListItem>();
+
+            options.Add(new SelectListItem { Text = "All", Value = "" });
+
+            foreach (var value in values)
+            {
+                options.Add(new SelectListItem { Text = value, Value = value, Selected = value == selectedValue });
+            }
+
+            return options;
         }
 
         public IActionResult ProductDetail(int id)
