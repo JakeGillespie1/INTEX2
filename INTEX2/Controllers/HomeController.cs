@@ -44,8 +44,8 @@ namespace INTEX2.Controllers
                 _inferenceSession = new InferenceSession("C:\\Users\\jakeg\\source\\repos\\INTEX2\\INTEX2\\gradient_boost_model.onnx");
                 _logger.LogInformation("ONNX model loaded successfully.");
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 _logger.LogError($"Error loading the ONNX model: {ex.Message}");
             }
 
@@ -107,6 +107,25 @@ namespace INTEX2.Controllers
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member,Admin")]
+        public IActionResult Cart(string CartTotal)
+        {
+            ViewBag.CartTotal = CartTotal;
+            return View("Checkout");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Member,Admin")]
+        public IActionResult CheckoutCart(Order order)
         {
             return View();
         }

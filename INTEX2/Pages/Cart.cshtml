@@ -30,7 +30,7 @@
 
 <div class="cart">
     <h1>Cart</h1>
-
+<form method="post" asp-controller="Home" asp-action="Cart">
     <table class="cart-table">
         <thead>
             <tr>
@@ -45,16 +45,18 @@
             @foreach (var l in Model.Cart?.Lines ?? Enumerable.Empty<Cart.CartLine>())
             {
                 <tr>
-                    <td class="text-left">@l.Product.Name</td>
-                    <td>@l.Quantity</td>
-                    <td>@l.Product.Price</td>
-                    <td>@((l.Quantity * l.Product.Price).ToString("c"))</td>
+                    <td class="text-left">@l.Product.Name
+                    </td>
+                    <td>@l.Quantity
+                    </td>
+                    <td>@l.Product.Price
+                    </td>
+                    <td>@((l.Quantity * l.Product.Price).ToString("c"))
+                    </td>
                     <td class="text-center">
-                        <form asp-page-handler="Remove" method="post">
-                            <input type="hidden" name="ProductId" value="@l.Product.ProductId" />
-                            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
-                            <button type="submit" class="btn btn-sm">Remove</button>
-                        </form>
+                        <input type="hidden" name="ProductId" value="@l.Product.ProductId" readonly />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" readonly />
+                        <button type="submit" asp-page-handler="Remove" class="btn btn-sm">Remove</button>
                     </td>
                 </tr>
             }
@@ -62,11 +64,14 @@
         <tfoot>
             <tr>
                 <td colspan="3" class="text-right">Total:</td>
-                <td class="text-right">@Model.Cart?.CalculateTotal().ToString("c")</td>
+                <td class="text-right">
+                        <input value=@Model.Cart?.CalculateTotal().ToString("c") Name="CartTotal" readonly />
+                </td>
             </tr>
         </tfoot>
     </table>
-
+    <button type="submit">Checkout</button>
+</form>
     <div class="text-center">
         <a class="btn" href="@Model.ReturnUrl">Continue Shopping</a>
     </div>
