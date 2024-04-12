@@ -370,13 +370,13 @@ footer {
     padding: 0;
     font: inherit;
     outline: inherit;
-    color: #a3233c;
+    color: var(--my-pink);
     text-transform: uppercase;
 }
 
     .logout-btn:hover {
         text-decoration: none;
-        color: var(--link);
+        color: var(--return-link);
     }
 
 
@@ -1016,11 +1016,12 @@ footer {
     padding: 12px 25px;
     margin-right: 10px;
     background-color: var(--my-pink); /* Button background color */
-    color: #fff; /* Text color */
+    color: var(--login); /* Text color */
     text-decoration: none; /* Remove underline */
     border-radius: 15px; /* Rounded corners */
     transition: background-color 0.3s; /* Smooth transition */
     text-transform: uppercase;
+    font-weight: 800
 }
 
     .admin-button:hover {
@@ -1161,3 +1162,61 @@ footer {
 .btn-bruh:hover {
     color: var(--my-pink);
 }
+
+.checkout-container {
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto; /* Center the container horizontally */
+    padding: 20px; /* Add some padding */
+    background-color: var(--img-back); /* Add border */
+    border-radius: 8px; /* Add rounded corners */
+    color: var(--my-pink);
+}
+
+    .checkout-container h1 {
+        font-size: 24px; /* Set the font size for the heading */
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+.checkout-form {
+    margin-top: 20px; /* Add some space between heading and form */
+}
+
+.customer-info,
+.payment-info {
+    background-color: var(--login); /* Background color for info sections */
+    padding: 20px; /* Add padding */
+   
+    border-radius: 8px; /* Add rounded corners */
+    margin-bottom: 20px; /* Add some space between sections */
+}
+
+    .customer-info h3,
+    .payment-info h3 {
+        font-size: 20px; /* Set the font size for section headings */
+        margin-bottom: 10px; /* Add some space below section headings */
+    }
+
+    .customer-info input,
+    .payment-info input,
+    .customer-info select,
+    .payment-info select {
+        width: 100%; /* Make inputs and selects full width */
+        padding: 10px; /* Add padding */
+        margin-bottom: 10px; /* Add some space between inputs/selects */
+        border: 1px solid #ccc; /* Add border */
+        border-radius: 4px; /* Add rounded corners */
+    }
+
+.btn {
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    padding: 10px 20px; /* Button padding */
+    border: none; /* Remove button border */
+    border-radius: 4px; /* Add rounded corners */
+    cursor: pointer; /* Add pointer cursor */
+}
+
+    .btn:hover {
+        background-color: #0056b3; /* Button background color on hover */
+    }

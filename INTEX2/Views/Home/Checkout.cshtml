@@ -25,100 +25,98 @@
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
-<h1>Checked</h1>
-<p>@ViewBag.CartTotal</p>
+<div class="checkout-container">
+    <h1>Checkout</h1>
+    <p>@ViewBag.CartTotal</p>
 
-<form method="post" asp-controller="Home" asp-action="CheckoutCart">
-    <div class="row">
-        <div class="col-75">
-            <div class="container">
-                    <div class="row">
-                        <div class="col-50">
-                            <h3>Customer Information <i class="fa fa-user"></i> </h3>
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="John">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Doe">
-                            <label for="age">Age</label>
-                            <input type="text" id="age" name="age" placeholder="21">
-                            <!-- Other billing address fields (email, address, city, state, zip) -->
-                        </div>
-                        <div class="col-50">
-                            <input type="hidden" id="transType" name="transType" readonly value="Online">
-                            <input type="hidden" id="entryMode" name="entryMode" readonly value="CVV">
-                            <h3>Payment Information</h3>
-                            <label for="cardName">Name on Card</label>
-                            <input type="text" id="cardName" name="CardName" placeholder="John More Doe">
-                            <br />
-                            <label for="selectedDay">Today's Date: </label>
-                            <label for="selectedDay">Day</label>
-                            <select id="selectedDay" name="selectedDay" class="form-control">
-                                <option value="Mon">Monday</option>
-                                <option value="Tue">Tuesday</option>
-                                <option value="Wed">Wednesday</option>
-                                <option value="Thu">Thursday</option>
-                                <option value="Fri">Friday</option>
-                                <option value="Sat">Saturday</option>
-                                <option value="Sun">Sunday</option>
-                            </select>
-                            <input type="date" />
-                        </div>
-
-
-
-                            <div class="form-group">
-                                <label for="cardType">Card Type</label>
-                                <select id="cardType" name="cardType" class="form-control">
-                                    <option value="Visa">Visa</option>
-                                    <option value="MasterCard">MasterCard</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="bankName">Bank Name</label>
-                                <select id="bankName" name="bankName" class="form-control">
-                                    <option value="Barclays">Barclays</option>
-                                    <option value="RBS">RBS</option>
-                                    <option value="Lloyds">Lloyds</option>
-                                    <option value="Metro">Metro</option>
-                                    <option value="Monzo">Monzo</option>
-                                    <option value="HSBC">HSBC</option>
-                                    <option value="Halifax">Halifax</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="countryShip">Shipping Location</label>
-                                <select id="countryShip" name="countryShip" class="form-control">
-                                    <option value="United Kingdom">United Kingdom</option>
-                                    <option value="Russia">Russia</option>
-                                    <option value="USA">United States</option>
-                                    <option value="India">India</option>
-                                    <option value="China">China</option>
-                                    <!-- Add other shipping location options -->
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="countryTrans">Transaction Location</label>
-                                <select id="countryTrans" name="countryTrans" class="form-control">
-                                    <option value="United Kingdom">United Kingdom</option>
-                                    <option value="Russia">Russia</option>
-                                    <option value="USA">United States</option>
-                                    <option value="India">India</option>
-                                    <option value="China">China</option>
-                                    <!-- Add other transaction location options -->
-                                </select>
-                            </div>
-
-                            <!-- Other payment fields (credit card number, expiration month/year, CVV) -->
-                        </div>
+    <form method="post" asp-controller="Home" asp-action="CheckoutCart">
+        <div class="checkout-form">
+            <div class="row">
+                <div class="col-50">
+                    <div class="customer-info">
+                        <h3>Customer Information <i class="fa fa-user"></i> </h3>
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="John">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Doe">
+                        <label for="age">Age</label>
+                        <input type="text" id="age" name="age" placeholder="21">
                     </div>
-                    <button type="submit" class="btn">Continue to checkout</button>
+                </div>
+                <div class="col-50">
+                    <div class="payment-info">
+                        <h3>Payment Information</h3>
+                        <label for="cardName">Name on Card</label>
+                        <input type="text" id="cardName" name="CardName" placeholder="John More Doe">
+                        <br />
+                        <label for="selectedDay">Today's Date: </label>
+                        <label for="selectedDay">Day</label>
+                        <select id="selectedDay" name="selectedDay" class="form-control">
+                            <option value="Mon">Monday</option>
+                            <option value="Tue">Tuesday</option>
+                            <option value="Wed">Wednesday</option>
+                            <option value="Thu">Thursday</option>
+                            <option value="Fri">Friday</option>
+                            <option value="Sat">Saturday</option>
+                            <option value="Sun">Sunday</option>
+                        </select>
+                        <input type="date" />
+
+                        <div class="form-group">
+                            <label for="cardType">Card Type</label>
+                            <select id="cardType" name="cardType" class="form-control">
+                                <option value="Visa">Visa</option>
+                                <option value="MasterCard">MasterCard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="bankName">Bank Name</label>
+                            <select id="bankName" name="bankName" class="form-control">
+                                <option value="Barclays">Barclays</option>
+                                <option value="RBS">RBS</option>
+                                <option value="Lloyds">Lloyds</option>
+                                <option value="Metro">Metro</option>
+                                <option value="Monzo">Monzo</option>
+                                <option value="HSBC">HSBC</option>
+                                <option value="Halifax">Halifax</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="countryShip">Shipping Location</label>
+                            <select id="countryShip" name="countryShip" class="form-control">
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Russia">Russia</option>
+                                <option value="USA">United States</option>
+                                <option value="India">India</option>
+                                <option value="China">China</option>
+                                <!-- Add other shipping location options -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="countryTrans">Transaction Location</label>
+                            <select id="countryTrans" name="countryTrans" class="form-control">
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Russia">Russia</option>
+                                <option value="USA">United States</option>
+                                <option value="India">India</option>
+                                <option value="China">China</option>
+                                <!-- Add other transaction location options -->
+                            </select>
+                        </div>
+
+                        <!-- Add other payment fields (credit card number, expiration month/year, CVV) -->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn">Continue to checkout</button>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
 
 
 <vc:footer-types></vc:footer-types>
