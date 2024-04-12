@@ -553,6 +553,81 @@ namespace INTEX2.Controllers
             return RedirectToAction("Customers");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteCustomer(int id) 
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+
+            var customer = _repo.Customers
+                .Single(x => x.CustomerId == id);
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteCustomer(Customer customer)
+        {
+            _repo.DeleteCustomer(customer);
+
+            return RedirectToAction("Customers");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult ProductsList()
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+
+            var products = _repo.Products;
+            return View(products);
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditProduct(int id)
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+            var product = _repo.Products
+                .Single(x => x.ProductId == id);
+
+            return View(product);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditProduct(Product product)
+        {
+            _repo.EditProduct(product);
+            return RedirectToAction("ProductsList");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteProduct(int id)
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+            var product = _repo.Products
+                .Single(x => x.ProductId == id);
+            return View(product);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult DeleteProduct(Product product)
+        {
+            _repo.DeleteProduct(product);
+            return RedirectToAction("Products");
+        }
 
         public IActionResult About()
         {

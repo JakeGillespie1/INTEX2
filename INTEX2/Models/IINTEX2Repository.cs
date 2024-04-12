@@ -6,7 +6,7 @@ namespace INTEX2.Models
     {
         IQueryable<Category> Categories { get; }
 
-        IEnumerable<Product> Products { get; }
+        List<Product> Products { get; }
 
         List<Customer> Customers { get; }
 
@@ -28,5 +28,9 @@ namespace INTEX2.Models
         Product GetProductById(int id);
 
         public void EditCustomer(Customer customer);
+
+        public void DeleteCustomer(Customer customer);
+
+        public void EditProduct(Product product);
     }
 }
