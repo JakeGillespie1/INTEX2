@@ -135,7 +135,7 @@ namespace INTEX2.Controllers
             ViewBag.CartTotal = CartTotal;
             return View("Checkout");
         }
-
+        
         [HttpPost]
         public IActionResult CheckoutCart()
         {
