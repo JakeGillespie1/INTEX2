@@ -49,19 +49,19 @@ body {
 
 /* Dark Theme */
 .dark-theme {
-    --my-pink: #F69AAC; /* Light pink */
+    --my-pink: #FDE96D; /* Light yellow */
     --secondary: #161616; /* Very dark gray */
     --night-text-color: white; /* White */
     --black: white; /* White */
     --img-back: #1F1D1D; /* Very dark gray */
-    --hover: #F4B8C3; /* Light pink */
+    --hover: #F4E5B8; /* Light yellow */
     --login: #6D6868; /* Gray */
     --input: #222222; /* Very dark gray */
     --morning-text-color: #518AC5; /* Light blue */
     --afternoon-text-color: #FDE96D; /* Light yellow */
     --evening-text-color: #FF8430; /* Orange */
     --night-text-color: #8BBAF8; /* Light blue */
-    --return-link: #A3233C; /* Dark red */
+    --return-link: A38423; /* Dark yellow */
 }
 
 
@@ -177,7 +177,7 @@ nav ul {
 
 .image-cont {
     max-width: 100%;
-    max-height: 550px; /* Adjust this value to your desired height */
+    max-height: 500px; /* Adjust this value to your desired height */
     overflow: hidden; /* This ensures that the image does not overflow its container */
     display: flex; /* Use flexbox to vertically center the image */
     align-items: flex-start;
@@ -633,13 +633,16 @@ footer {
 .title-container {
     display: flex;
     justify-content: space-between; /* Align items to the left */
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .pagination-baby {
     display: flex;
     justify-content: flex-end; /* Align items to the right */
-    margin-bottom: 15px;
+    padding-top:20px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 10px;
 }
 
 .object-row {
@@ -706,11 +709,12 @@ footer {
 .pagination-baby a {
     color: var(--secondary);
     text-align: left;
-    font-size: 1vw;
+    font-size: 0.8vw;
+    font-weight: 600;
     background-color: var(--my-pink);
-    padding: 5px;
+    padding: 8px;
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 20px;
 }
     .pagination-baby a:hover {
         background-color: var(--black)
@@ -824,15 +828,19 @@ footer {
 /* Style for the "View Details" link */
 .view-details-link {
     display: block;
-    margin-top: 10px; /* Adjust as needed */
+    margin-top: -10px; /* Adjust as needed */
     text-decoration: none; /* Remove default underline */
     color: #B40729; /* Change link color */
+    font-weight: 800;
    
 }
 
-.deets {
+    .view-details-link:hover{
+        color: var(--my-pink);
+    }
 
-}
+    .deets {
+    }
 
 
 .cookie-consent-banner {
@@ -856,11 +864,12 @@ footer {
 }
 
 .detail-image img {
-    max-width: 300px; /* Adjust as needed */
+    max-width: 50vw; /* Adjust as needed */
 }
 
 .detail-info {
     margin-left: 20px;
+    max-width: 60vw;
 }
 
 .scrollable-description {
@@ -926,3 +935,229 @@ footer {
 }
 
 
+
+/*admin styling*/
+
+
+.admin-image-cont {
+    max-width: 100%;
+    max-height: 380px; /* Adjust this value to your desired height */
+    overflow: hidden; /* This ensures that the image does not overflow its container */
+    display: flex; /* Use flexbox to vertically center the image */
+    align-items: flex-start;
+    /* Align items to the start of the flex container (top) */
+}
+
+    .admin-image-cont img {
+        width: 100%;
+        height: auto; /* This ensures that the image maintains its aspect ratio */
+        display: block; /* This ensures that the image respects the container's width */
+        vertical-align: bottom; /* Align the image to the top of the line */
+    }
+
+.admin-image-wrapper a {
+    position: absolute; /* Set position to absolute for the text */
+    top: 29%; /* Align the text vertically at 50% from the top */
+    left: 50%; /* Align the text horizontally at 50% from the left */
+    transform: translate(-50%, -50%); /* Translate the text back by 50% of its own height and width */
+    color: white; /* Set text color */
+    font-weight: 700;
+    font-size: 5vw;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    text-shadow: 2px 10px 15px rgba(0, 0, 0, 0.4);
+    line-height: 1.3;
+    text-decoration: none;
+    letter-spacing: -2px;
+}
+
+
+    .admin-image-wrapper a::after {
+        content: ''; /* Add content for the pseudo-element */
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%; /* Full width */
+        height: 3px; /* Height of the underline */
+        background-color: white; /* Color of the underline */
+        transform: translateX(-100%); /* Initially hide the underline off to the left */
+        transition: transform 0.3s ease; /* Add transition effect for sliding in */
+    }
+
+    .admin-image-wrapper a:hover::after {
+        transform: translateX(0); /* Slide the underline in on hover */
+    }
+
+#admin-pic {
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    transition: filter 0.7s ease;
+}
+
+.admin-image-wrapper:hover #admin-pic {
+    filter: none;
+    -webkit-filter: grayscale(0);
+    cursor: pointer;
+}
+
+
+
+.admin-buttons {
+    display: flex; /* Arrange buttons horizontally */
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+    
+}
+
+.admin-button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin-right: 10px;
+    background-color: var(--my-pink); /* Button background color */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 15px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+    text-transform: uppercase;
+}
+
+    .admin-button:hover {
+        background-color: var(--hover); /* Darker background color on hover */
+        color: var(--secondary);
+    }
+
+
+.filter-form-container {
+   /* Optional: Add some bottom margin */
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow form elements to wrap */
+    border-radius: 20px;
+    
+}
+
+.form-group {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: none;
+    /* Optional: Add some right margin between form groups */
+}
+
+.btn-custom {
+    margin-top: 23px;
+    margin-bottom: 10px;
+    /* Optional: Add some top margin to the button */
+    background-color: var(--my-pink);
+    padding: -2px 10px; /* Adjust padding to change button size */
+    font-size: 14px; /* Adjust font size as needed */
+    border-radius: 20px; /* Add border radius for rounded corners */
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+
+.form-control {
+    border-radius: 20px;
+    border-color: var(--my-pink);
+    background-color: var(--img-back);
+    color: var(--black);
+}
+.category {
+    text-align: center;
+}
+
+
+
+
+
+.cart-container {
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto; /* Center the cart on the page */
+    padding: 20px; /* Add some padding around the cart */
+}
+
+.cart {
+    background-color: var(--img-back); /* Background color for the cart */
+    padding: 20px; /* Add padding inside the cart */
+    border-radius: 20px; /* Add rounded corners to the cart */
+    color: var(--my-pink);
+}
+
+    .cart h1 {
+        font-size: 24px; /* Set the font size for the cart title */
+        margin-bottom: 20px; /* Add some space below the cart title */
+    }
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders between table cells */
+}
+
+    .cart-table th,
+    .cart-table td {
+        padding: 8px; /* Add padding to table cells */
+        border-bottom: 1px solid #dee2e6;
+      /* Add bottom border to table rows */
+    }
+
+    .cart-table th {
+        text-align: left; /* Align table headers to the left */
+    }
+
+    .cart-table tfoot td {
+        font-weight: bold; /* Make the total row bold */
+    }
+
+    .cart-table tfoot input {
+        width: 100%; /* Make the total input field full width */
+        padding: 6px 12px; /* Add padding to the input field */
+        border: 1px solid #ced4da; /* Add border to the input field */
+        border-radius: 4px; /* Add rounded corners to the input field */
+    }
+
+.text-center {
+    text-align: center; /* Center align text */
+    margin-top: 20px; /* Add some space above text */
+}
+
+.btn {
+    display: inline-block; /* Display buttons inline */
+    padding: 8px 16px; /* Add padding to buttons */
+    font-size: 14px; /* Set font size for buttons */
+    cursor: pointer; /* Add pointer cursor to buttons */
+    text-align: center; /* Center align text in buttons */
+    text-decoration: none; /* Remove default button underline */
+    border: 1px solid transparent; /* Add border to buttons */
+    border-radius: 4px; /* Add rounded corners to buttons */
+}
+
+.btn-primary {
+    color: #fff; /* Text color for primary button */
+    background-color: #007bff; /* Background color for primary button */
+    border-color: #007bff; /* Border color for primary button */
+}
+
+.btn-secondary {
+    color: #fff; /* Text color for secondary button */
+    background-color: #6c757d; /* Background color for secondary button */
+    border-color: #6c757d; /* Border color for secondary button */
+}
+
+.btn-okay {
+    background-color: var(--my-pink);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.btn-bruh {
+    background-color: var(--secondary);
+    color: var(--black);
+}
+
+.btn-bruh:hover {
+    color: var(--my-pink);
+}

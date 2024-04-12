@@ -108,13 +108,13 @@ namespace INTEX2.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
         {
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
             ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-            ViewBag.UserName = user.Result?.FirstName;
+            //ViewBag.UserName = user.Result?.FirstName;
             return View();
         }
 

@@ -31,7 +31,19 @@
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 
 
-<h1>ADMIN WELCOME</h1>
 
 
-<vc:footer-types></vc:footer-types>
+<div class="admin-image-cont">
+    <div class="admin-image-wrapper">
+        <img src="~/img/driver.jpg" id="admin-pic" alt="3 peeps" />
+       
+        <a asp-area="" asp-controller="Home" asp-action="ProductsPage">WELCOME ADMIN</a>
+    </div>
+</div>
+
+<div class="admin-buttons">
+    <a href="#" class="admin-button">Edit Products</a>
+    <a href="#" class="admin-button">Review Order</a>
+    <a href="#" class="admin-button">Add Items</a>
+    <a href="#" class="admin-button">User List</a>
+</div>

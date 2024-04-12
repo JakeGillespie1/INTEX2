@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib//font-awesome/css/all.min.css" />
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('.nav-main').classList.add('fade-in');
@@ -39,6 +40,8 @@
         function toggleDarkMode() {
             var iconf = document.getElementById("iconf");
             var astro = document.getElementById("astro");
+            var logo = document.getElementById("logo");
+            var foot = document.getElementById("foot");
 
             // Toggle dark theme class on body
             document.body.classList.toggle("dark-theme");
@@ -46,10 +49,14 @@
             // Toggle image source based on dark mode
             if (document.body.classList.contains("dark-theme")) {
                 astro.src = "img/sick-car.jpg";
+                logo.src = "img/new-aur-dark.png";
+                foot.src = "img/log-big.png";
                 // Store dark mode preference in local storage
                 localStorage.setItem("darkMode", "true");
             } else {
                 astro.src = "img/3-space (1).jpg";
+                logo.src = "img/new-aur.png";
+                foot.src = "img/pink-log.png";
                 // Remove dark mode preference from local storage
                 localStorage.removeItem("darkMode");
             }
@@ -61,6 +68,8 @@
             document.body.classList.add("dark-theme");
             // Update image source for dark mode
             document.getElementById("astro").src = "img/sick-car.jpg";
+            document.getElementById("logo").src = "img/new-aur-dark.png";
+            document.getElementById("foot").src = "img/log-big.png";
         }
 
         // Add click event listener to dark mode button

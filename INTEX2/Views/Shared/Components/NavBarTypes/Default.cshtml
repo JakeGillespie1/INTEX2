@@ -7,7 +7,7 @@
 
 <nav class="nav-main">
     <a asp-area="" asp-controller="Home" asp-action="Index">
-        <img src="~/img/new-aur.png" alt="Logo" class="logo">
+        <img src="img/new-aur.png" alt="Logo" class="logo" id="logo">
     </a>
     <ul class="fade-in">
         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
@@ -15,8 +15,6 @@
         <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
         <vc:cart-summary />
     </ul>
-
-   
 
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
