@@ -8,7 +8,7 @@ namespace INTEX2.Models
 
         IEnumerable<Product> Products { get; }
 
-        IQueryable<Customer> Customers { get; }
+        List<Customer> Customers { get; }
 
         IQueryable<Order> Orders { get; }
 
@@ -26,5 +26,7 @@ namespace INTEX2.Models
         public void AddFraudPredictionToOrder(int orderId);
 
         Product GetProductById(int id);
+
+        public void EditCustomer(Customer customer);
     }
 }

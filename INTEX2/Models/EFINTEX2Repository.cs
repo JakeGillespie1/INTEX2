@@ -19,7 +19,7 @@ namespace INTEX2.Models
 
         public IEnumerable<Product> Products => _context.Products;
 
-        public IQueryable<Customer> Customers => _context.Customers;
+        public List<Customer> Customers => _context.Customers.ToList();
 
         public IQueryable<Order> Orders => _context.Orders;
 
@@ -119,6 +119,12 @@ namespace INTEX2.Models
         public void AddOrder(Order order)
         {
             _context.Orders.Add(order);
+        }
+
+        public void EditCustomer(Customer customer)
+        {
+            _context.Update(customer);
+            _context.SaveChanges();
         }
 
     }
