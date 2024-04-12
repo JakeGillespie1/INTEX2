@@ -32,5 +32,7 @@ namespace INTEX2.Models
         public void DeleteCustomer(Customer customer);
 
         public void EditProduct(Product product);
+
+        public void DeleteProduct(Product product);
     }
 }

@@ -139,6 +139,12 @@ namespace INTEX2.Models
             _context.SaveChanges();
         }
 
+        public void DeleteProduct(Product product) 
+        { 
+            _context.Products.Remove(product);
+            _context.SaveChanges();
+        }
+
     }
 }
 

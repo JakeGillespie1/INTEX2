@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Principal
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    string userRole = "Default"; // Default role
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="Admin"></vc:nav-bar-types>
+@model Product
+<!--Delete Record Confirmation goes below-->
+
+<div class="title-format">
+    <h3>Confirm Deletion</h3>
+    <p>@Model.Name</p>
+    <form method="post" asp-controller="Home" asp-action="DeleteProduct">
+        <input type="hidden" asp-for="ProductId" />
+        <button class="btn-delete" type="submit">Delete</button>
+        <a class="btn-edit" asp-controller="Home" asp-action="Index">Cancel</a>
+    </form>
+</div>
+<vc:footer-types></vc:footer-types>
