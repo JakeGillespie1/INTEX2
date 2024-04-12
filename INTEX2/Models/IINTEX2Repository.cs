@@ -10,7 +10,7 @@ namespace INTEX2.Models
 
         List<Customer> Customers { get; }
 
-        IQueryable<Order> Orders { get; }
+        List<Order> Orders { get; }
 
         IQueryable<LineItem> LineItems { get; }
         IQueryable<ProductBasedRecommendation> ProductBasedRecommendations { get; }
@@ -34,5 +34,9 @@ namespace INTEX2.Models
         public void EditProduct(Product product);
 
         public void DeleteProduct(Product product);
+
+        public AuthUserRecommendation GetMostRecent();
+
+        public List<Order> FraudOrders();
     }
 }

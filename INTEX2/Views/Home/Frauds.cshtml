@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Principal
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    ViewData["Title"] = "Fraud Review";
+}
+
+@{
+    string userRole = "Default"; // Default role
+
+    if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+            userRole = "Admin"; // Set role to Admin if user is an admin
+        }
+        else if (User.IsInRole("Member") || User.IsInRole("User"))
+        {
+            userRole = "User"; // Set role to User if user is a member or user
+        }
+    }
+}
+
+<vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
+@model List<Order>
+<h1>Aurora Bricks Order Review Page</h1>
+
+<table class="table table-bordered">
+    <thead classs="fw-bold">
+        <br />
+        <tr>
+            <th>OrderId</th>
+            <th>CustomerId</th>
+            <th>Date</th>
+            <th>DayOfWeek</th>
+            <th>Time</th>
+            <th>EntryMode</th>
+            <th>Amount</th>
+            <th>TypeOfTransaction</th>
+            <th>CountryOfTransaction</th>
+            <th>ShippingCountry</th>
+            <th>Bank</th>
+            <th>TypeOfCard</th>
+            <th>IsFraud?</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model)
+        {
+            @if (Model != null && Model.Any())
+            {
+                <tr>
+                    <th>@x.OrderId</th>
+                    <th>@x.CustomerId</th>
+                    <th>@x.Date</th>
+                    <th>@x.DayOfWeek</th>
+                    <th>@x.Time</th>
+                    <th>@x.EntryMode</th>
+                    <th>@x.Amount</th>
+                    <th>@x.TypeOfTransaction</th>
+                    <th>@x.CountryOfTransaction</th>
+                    <th>@x.ShippingAddress</th>
+                    <th>@x.Bank</th>
+                    <th>@x.TypeOfCard</th>
+                    <th>@x.Fraud</th>
+                </tr>
+
+
+            }   }
+    </tbody>
+</table>
+
+<vc:footer-types></vc:footer-types>
