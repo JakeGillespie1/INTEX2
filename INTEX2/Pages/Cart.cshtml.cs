@@ -10,7 +10,7 @@ namespace INTEX2.Pages
     public class CartModel : PageModel
     {
 
-        public string ReturnUrlC { get; set; } = "/";
+        public string ReturnUrl { get; set; } = "/";
 
         private IINTEX2Repository _repo;
         private Tools _tools; // Assuming _tools is an instance of ITools
@@ -27,14 +27,14 @@ namespace INTEX2.Pages
         public Cart? Cart { get; set; }
 
 
-        public void OnGet(string returnUrlC)
+        public void OnGet(string returnUrl)
         {
-            ReturnUrlC = returnUrlC ?? "/";
+            ReturnUrl = returnUrl ?? "/";
             SetViewDataTimeOfDay();
         }
 
 
-        public IActionResult OnPost(int productId, string returnUrlC)
+        public IActionResult OnPost(int productId, string returnUrl)
         {
             Product prod = _repo.Products.FirstOrDefault(x => x.ProductId == productId);
 
@@ -44,14 +44,14 @@ namespace INTEX2.Pages
           
             }
             
-            return RedirectToPage (new {returnUrlC});
+            return RedirectToPage (new {returnUrl});
             
         }
 
-        public IActionResult OnPostRemove(int productId, string returnUrlC)
+        public IActionResult OnPostRemove(int productId, string returnUrl)
         {
             Cart.RemoveLine(Cart.Lines.First(x => x.Product.ProductId == productId).Product);
-            return RedirectToPage (new {returnUrlC});
+            return RedirectToPage (new {returnUrl});
 
         }
 

@@ -90,63 +90,64 @@ internal class Program
 
         app.UseRouting();
 
-        ////CSP Header and extra security stuff
-        //app.Use(async (context, next) =>
-        //{
-        //    // Define the base CSP directive.
-        //    var csp = "default-src 'self'; " +
-        //              "script-src 'self' 'unsafe-inline' https://apis.google.com; " +
-        //              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-        //              "img-src 'self' https://inteximg.s3.amazonaws.com; " +
-        //              "font-src 'self' https://fonts.gstatic.com; " +
-        //              "default-src 'self' https://login.microsoftonline.com; "+
-        //              "frame-ancestors 'self' https://login.microsoftonline.com;";
+        //CSP Header and extra security stuff
+        app.Use(async (context, next) =>
+        {
+            // Define the base CSP directive.
+            var csp = "default-src 'self'; " +
+                      "script-src 'self' 'unsafe-inline' https://apis.google.com; " +
+                      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+                      "img-src 'self' https://inteximg.s3.amazonaws.com; " +
+                      "font-src 'self' https://fonts.gstatic.com; ";
 
-        //    // Modify CSP for development environment.
-        //    if (context.Request.Host.Host.Contains("localhost"))
-        //    {
-        //        csp += "connect-src 'self' ws://localhost:* http://localhost:*; ";
-        //    }
+            // Modify CSP for development environment.
+            if (context.Request.Host.Host.Contains("localhost"))
+            {
+                csp += "connect-src 'self' ws://localhost:* http://localhost:*; ";
+            }
 
-        //    // Append the CSP header to the response.
-        //    context.Response.Headers.Append("Content-Security-Policy", csp);
+            // Append the CSP header to the response.
+            context.Response.Headers.Append("Content-Security-Policy", csp);
 
-        //    // This is for the extra section for 414-- we have added the X-Content-Type-Options and X-Frame-Options
-        //    // Add other security headers to the response.
-        //    // (1)  instructs browsers not to perform MIME type sniffing, reducing the risk of certain types of attacks
-        //    context.Response.Headers.Add("X-Content-Type-Options", "nosniff"); // 
-        //                                                                       // (2)  prevents the page from being embedded in frames from different origins, mitigating clickjacking attacks
-        //    context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
+            // This is for the extra section for 414-- we have added the X-Content-Type-Options and X-Frame-Options
+            // Add other security headers to the response.
+            // (1)  instructs browsers not to perform MIME type sniffing, reducing the risk of certain types of attacks
+            context.Response.Headers.Add("X-Content-Type-Options", "nosniff"); // 
+                                                                               // (2)  prevents the page from being embedded in frames from different origins, mitigating clickjacking attacks
+            context.Response.Headers.Add("X-Frame-Options", "SAMEORIGIN");
 
-        //    await next.Invoke(); // Continue processing the request.
-        //});
+            await next.Invoke(); // Continue processing the request.
+        });
 
-        app.UseAuthorization();
 
-        //app.UseEndpoints(endpoints =>
-        //{
-        //    endpoints.MapControllerRoute(
-        //        name: "productDetail",
-        //        pattern: "product/{id}",
-        //        defaults: new { controller = "Home", action = "ProductDetail" }
-        //    );
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "productDetail",
+                pattern: "product/{id}",
+                defaults: new { controller = "Home", action = "ProductDetail" }
+            );
 
-        //    endpoints.MapControllerRoute(
-        //       name: "ProductsPage",
-        //       pattern: "Home/ProductsPage/{page}/{pageSize}",
-        //       defaults: new { controller = "Home", action = "ProductsPage" }
-        //   );
+            endpoints.MapControllerRoute(
+               name: "ProductsPage",
+               pattern: "Home/ProductsPage/{page}/{pageSize}",
+               defaults: new { controller = "Home", action = "ProductsPage" }
+           );
 
-        //    // Additional routes can be defined here...
-        //});
-        app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+            // Additional routes can be defined here...
+
+            // Default route
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
+
 
         app.MapRazorPages();
         app.MapControllers();
         app.UseHttpsRedirection();
         app.UseAuthentication();
+        app.UseAuthorization();
 
         //When we create a scope, we are able to access the services that we have configured in the identity
         using (var scope = app.Services.CreateScope())

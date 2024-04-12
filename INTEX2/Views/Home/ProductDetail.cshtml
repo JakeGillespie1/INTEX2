@@ -35,7 +35,7 @@
         
         <form id="@Model.ProductId" method="post" asp-page="/Cart" class="stuff">
             <input type="hidden" asp-for="ProductId" />
-            <input type="hidden" name="returnUrlC" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
             <button type="submit" class="add-to-cart">Add to cart</button>
         </form>
         <p class="ita">Year: @Model.Year</p>

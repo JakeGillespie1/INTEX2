@@ -55,7 +55,7 @@
                     </td>
                     <td class="text-center">
                         <input type="hidden" name="ProductId" value="@l.Product.ProductId" readonly />
-                        <input type="hidden" name="returnUrlC" value="@Model.ReturnUrlC" readonly />
+                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" readonly />
                         <button type="submit" asp-page-handler="Remove" class="btn btn-sm">Remove</button>
                     </td>
                 </tr>
@@ -73,7 +73,7 @@
     <button type="submit">Checkout</button>
 </form>
     <div class="text-center">
-        <a class="btn" href="@Model.ReturnUrlC">Continue Shopping</a>
+        <a class="btn" href="@Model.ReturnUrl">Continue Shopping</a>
     </div>
 </div>
 
