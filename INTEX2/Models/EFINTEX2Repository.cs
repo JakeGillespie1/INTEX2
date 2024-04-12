@@ -21,7 +21,7 @@ namespace INTEX2.Models
 
         public List<Customer> Customers => _context.Customers.ToList();
 
-        public IQueryable<Order> Orders => _context.Orders;
+        public List<Order> Orders => _context.Orders.ToList();
 
         public IQueryable<LineItem> LineItems => _context.LineItems;
         public IQueryable<ProductBasedRecommendation> ProductBasedRecommendations => _context.ProductBasedRecommendations;
@@ -143,6 +143,22 @@ namespace INTEX2.Models
         { 
             _context.Products.Remove(product);
             _context.SaveChanges();
+        }
+
+        public AuthUserRecommendation GetMostRecent()
+        {
+            var mostRecent = _context.AuthUserRecommendations
+                .FirstOrDefault();
+
+            return mostRecent;
+        }
+
+        public List<Order> FraudOrders()
+        {
+            var fraudOrders = _context.Orders
+                .Where(x => x.Fraud == 1).ToList();
+
+            return fraudOrders;
         }
 
     }

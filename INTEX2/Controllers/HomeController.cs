@@ -90,6 +90,21 @@ namespace INTEX2.Controllers
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 return View();
             }
+            else if (user.Result?.FirstName == "Navid")
+            {
+                ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                ViewBag.UserName = user.Result?.FirstName;
+                var mostRecentPurchase = _repo.GetMostRecent();
+                string rec1 = mostRecentPurchase.Rec1;
+                string rec2 = mostRecentPurchase.Rec2;
+                string rec3 = mostRecentPurchase.Rec3;
+
+                var recommendationsList = _repo.GetProductRecs(rec1, rec2, rec3);
+
+                ViewBag.Recommendations = recommendationsList; // Pass recommendations to the view
+
+                return View();
+            }
             else if (user.Result?.FirstName != "Admin")
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
@@ -153,8 +168,10 @@ namespace INTEX2.Controllers
         }
 
         [HttpPost]
-        public IActionResult FraudPrediction(Order order)
+        public IActionResult FraudPrediction(Order order, string amountPay, string selectedDay, string countryTrans, string countryShip, string bankName, 
+            string cardType)
         {
+            //IT KEEPS ON PASSING amountPay AS A NULL!!! WHYYYY
             //Initialize variables to put into the prediction model list
             int time = 0;
             int amount = 0;
@@ -184,177 +201,190 @@ namespace INTEX2.Controllers
             int bankRBS = 0;
             int visa = 0;
 
-            //Add order (minus prediction) to db
-            _repo.AddOrder(order);
+            order.Amount = 0;
+            order.Date = DateTime.Now.Date.ToString();
+            order.Time = (byte)DateTime.Now.Hour;
+            order.CountryOfTransaction = countryTrans;
+            order.ShippingAddress = countryShip;
+            order.Bank = bankName;
+            order.DayOfWeek = selectedDay;
+            order.TypeOfCard = cardType;
 
-            //Dictionary mapping the numeric prediction to potential fraud...
-            var class_type_dict = new Dictionary<int,string>()
+            if (order.Amount != 0)
             {
-                {0 , "Not Fraudulent" },
-                {1, "Potentially Fraudulent Purchase" }
-            };
+                //Add order (minus prediction) to db
+                _repo.AddOrder(order);
 
-            //Initialize the input list
-            var input = new List<float> { time, amount, monday, saturday, sunday, thursday, tuesday, wednesday,
-                pin, tap, onilne, POS, india, russia, usa, uk, shipIndia, shipRuss, shipUS, shipUK,
-                bankHSBC, bankHalifax, bankLloyds, bankMetro, bankMonzo, bankRBS, visa };
-
-            //Scan through the order and place the inputs into the model...
-            //Insert amount and time of day
-            input[0] = order.Time;
-            input[1] = (float)order.Amount;
-
-            //Insert Day of week
-            if (order.DayOfWeek == "Mon")
-            {
-                input[2] = 1;
-            }
-            else if (order.DayOfWeek == "Sat")
-            {
-                input[3] = 1;
-            }
-            else if (order.DayOfWeek == "Sun")
-            {
-                input[4] = 1;
-            }
-            else if (order.DayOfWeek == "Thu")
-            {
-                input[5] = 1;
-            }
-            else if (order.DayOfWeek == "Tue")
-            {
-                input[6] = 1;
-            }
-            else if (order.DayOfWeek == "Wed")
-            {
-                input[7] = 1;
-            }
-
-            //Insert Payment Type
-            if (order.EntryMode == "PIN")
-            {
-                input[8] = 1;
-            }
-            else if (order.EntryMode == "Tap")
-            {
-                input[9] = 1;
-            }
-
-            //Insert type of transaction
-            if (order.TypeOfTransaction == "Online")
-            {
-                input[10] = 1;
-            }
-            else if (order.TypeOfTransaction == "POS")
-            {
-                input[11] = 1;
-            }
-
-            //insert country of origin
-            if (order.CountryOfTransaction == "India")
-            {
-                input[12] = 1;
-            }
-            else if (order.CountryOfTransaction == "Russia")
-            {
-                input[13] = 1;
-            }
-            else if (order.CountryOfTransaction == "USA")
-            {
-                input[14] = 1;
-            }
-            else if(order.CountryOfTransaction == "United Kingdom")
-            {
-                input[15] = 1;
-            }
-
-            //insert shipping address
-            if (order.ShippingAddress == "India")
-            {
-                input[16] = 1;
-            }
-            else if (order.ShippingAddress == "Russia")
-            {
-                input[17] = 1;
-            }
-            else if (order.ShippingAddress == "USA")
-            {
-                input[18] = 1;
-            }
-            else if (order.ShippingAddress == "United Kingdom")
-            {
-                input[19] = 1;
-            }
-
-            //insert bank
-            if (order.Bank == "HSBC")
-            {
-                input[20] = 1;
-            }
-            else if (order.Bank =="Halifax")
-            {
-                input[21] = 1;
-            }
-            else if (order.Bank == "Lloyds")
-            {
-                input[22] = 1;
-            }
-            else if (order.Bank == "Metro")
-            {
-                input[23] = 1;
-            }
-            else if (order.Bank == "Monzo")
-            {
-                input[24] = 1;
-            }
-            else if (order.Bank == "RBS")
-            {
-                input[25] = 1;
-            }
-
-            //insert type of card info
-            if (order.TypeOfCard == "Visa")
-            {
-                input[26] = 1;
-            }
-
-            try
-            {
-                var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, input.Count });
-                var inputs = new List<NamedOnnxValue>
+                //Dictionary mapping the numeric prediction to potential fraud...
+                var class_type_dict = new Dictionary<int, string>()
                 {
-                    NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
+                    {0 , "Not Fraudulent" },
+                    {1, "Potentially Fraudulent Purchase" }
                 };
 
-                using (var results = _inferenceSession.Run(inputs)) //make prediction from the inputs from the payment info form (smae as model.predict)
-                {
-                    var prediction = results.FirstOrDefault(item => item.Name == "output_label")?.AsTensor<long>().ToArray();
-                    if (prediction != null && prediction.Length > 0)
-                    {
-                        //Use the prediction to get the fraud prediction from the directory (1 or 0)
-                        var isFraud = class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown");
-                        ViewBag.Prediction = isFraud;
-                        ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-                        if (isFraud == "Potentially Fraudulent Purchase")
-                        {
-                            //Save new prediction to database (if it is fraudulent) as well!!
-                            _repo.AddFraudPredictionToOrder(order.OrderId);
-                        }
+                //Initialize the input list
+                var input = new List<float> { time, amount, monday, saturday, sunday, thursday, tuesday, wednesday,
+                    pin, tap, onilne, POS, india, russia, usa, uk, shipIndia, shipRuss, shipUS, shipUK,
+                    bankHSBC, bankHalifax, bankLloyds, bankMetro, bankMonzo, bankRBS, visa };
 
-                        return View();
-                    }
-                    else
+                //Scan through the order and place the inputs into the model...
+                //Insert amount and time of day
+                input[0] = order.Time;
+                input[1] = (float)order.Amount;
+
+                //Insert Day of week
+                if (order.DayOfWeek == "Mon")
+                {
+                    input[2] = 1;
+                }
+                else if (order.DayOfWeek == "Sat")
+                {
+                    input[3] = 1;
+                }
+                else if (order.DayOfWeek == "Sun")
+                {
+                    input[4] = 1;
+                }
+                else if (order.DayOfWeek == "Thu")
+                {
+                    input[5] = 1;
+                }
+                else if (order.DayOfWeek == "Tue")
+                {
+                    input[6] = 1;
+                }
+                else if (order.DayOfWeek == "Wed")
+                {
+                    input[7] = 1;
+                }
+
+                //Insert Payment Type
+                if (order.EntryMode == "PIN")
+                {
+                    input[8] = 1;
+                }
+                else if (order.EntryMode == "Tap")
+                {
+                    input[9] = 1;
+                }
+
+                //Insert type of transaction
+                if (order.TypeOfTransaction == "Online")
+                {
+                    input[10] = 1;
+                }
+                else if (order.TypeOfTransaction == "POS")
+                {
+                    input[11] = 1;
+                }
+
+                //insert country of origin
+                if (order.CountryOfTransaction == "India")
+                {
+                    input[12] = 1;
+                }
+                else if (order.CountryOfTransaction == "Russia")
+                {
+                    input[13] = 1;
+                }
+                else if (order.CountryOfTransaction == "USA")
+                {
+                    input[14] = 1;
+                }
+                else if (order.CountryOfTransaction == "United Kingdom")
+                {
+                    input[15] = 1;
+                }
+
+                //insert shipping address
+                if (order.ShippingAddress == "India")
+                {
+                    input[16] = 1;
+                }
+                else if (order.ShippingAddress == "Russia")
+                {
+                    input[17] = 1;
+                }
+                else if (order.ShippingAddress == "USA")
+                {
+                    input[18] = 1;
+                }
+                else if (order.ShippingAddress == "United Kingdom")
+                {
+                    input[19] = 1;
+                }
+
+                //insert bank
+                if (order.Bank == "HSBC")
+                {
+                    input[20] = 1;
+                }
+                else if (order.Bank == "Halifax")
+                {
+                    input[21] = 1;
+                }
+                else if (order.Bank == "Lloyds")
+                {
+                    input[22] = 1;
+                }
+                else if (order.Bank == "Metro")
+                {
+                    input[23] = 1;
+                }
+                else if (order.Bank == "Monzo")
+                {
+                    input[24] = 1;
+                }
+                else if (order.Bank == "RBS")
+                {
+                    input[25] = 1;
+                }
+
+                //insert type of card info
+                if (order.TypeOfCard == "Visa")
+                {
+                    input[26] = 1;
+                }
+
+                try
+                {
+                    var inputTensor = new DenseTensor<float>(input.ToArray(), new[] { 1, input.Count });
+                    var inputs = new List<NamedOnnxValue>
                     {
-                        ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-                        return View();
+                        NamedOnnxValue.CreateFromTensor("float_input", inputTensor)
+                    };
+
+                    using (var results = _inferenceSession.Run(inputs)) //make prediction from the inputs from the payment info form (smae as model.predict)
+                    {
+                        var prediction = results.FirstOrDefault(item => item.Name == "output_label")?.AsTensor<long>().ToArray();
+                        if (prediction != null && prediction.Length > 0)
+                        {
+                            //Use the prediction to get the fraud prediction from the directory (1 or 0)
+                            var isFraud = class_type_dict.GetValueOrDefault((int)prediction[0], "Unknown");
+                            ViewBag.Prediction = isFraud;
+                            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                            if (isFraud == "Potentially Fraudulent Purchase")
+                            {
+                                //Save new prediction to database (if it is fraudulent) as well!!
+                                _repo.AddFraudPredictionToOrder(order.OrderId);
+                            }
+
+                            return View();
+                        }
+                        else
+                        {
+                            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+                            return View();
+                        }
                     }
-                }  
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error loading the ONNX model: {ex.Message}");
+                    return RedirectToAction("Index");
+                }
             }
-            catch (Exception ex) 
-            {
-                _logger.LogError($"Error loading the ONNX model: {ex.Message}");
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index");
         }
 
 
@@ -627,6 +657,19 @@ namespace INTEX2.Controllers
         {
             _repo.DeleteProduct(product);
             return RedirectToAction("Products");
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Frauds()
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+            var ordersFraud = _repo.FraudOrders();
+
+            return View(ordersFraud);
         }
 
         public IActionResult About()

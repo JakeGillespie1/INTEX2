@@ -9,7 +9,7 @@
 @inject UserManager<AppUser> UserManager
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Product List Page";
 }
 
 @{
@@ -58,12 +58,12 @@
                     <td>@x.Year</td>
                     <td>@x.NumParts</td>
                     <td>@x.Price</td>
-                    <td>@x.ImgLink</td>
+                    <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.ImgLink</td>
                     <td>@x.PrimaryColor</td>
                     <td>@x.SecondaryColor</td>
-                    <td>@x.Description</td>
+                    <td style="max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@x.Description</td>
                     <td>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="EditCustomer"
+                        <a class="btn btn-info" asp-controller="Home" asp-action="EditProduct"
                            asp-route-id="@x.ProductId">Edit</a>
                     </td>
 

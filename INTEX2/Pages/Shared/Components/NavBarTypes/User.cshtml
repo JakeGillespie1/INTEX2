@@ -10,22 +10,18 @@
 
 <nav class="nav-main">
     <a asp-area="" asp-controller="Home" asp-action="Index">
-        <img src="~/img/new-aur.png" alt="Logo" class="logo" id="logo">
+        <img src="~/img/new-aur.png" alt="Logo" class="logo">
     </a>
     <ul class="fade-in">
         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Shop</a></li>
-
         <li>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button class="logout-btn">Logout</button>
+                <button>Logout</button>
             </form>
         </li>
-
         <vc:cart-summary />
     </ul>
-
     <div class="greeting @(ViewBag.TimeOfDay.ToLower())">
         @if (User.IsInRole("Admin"))
         {
@@ -33,11 +29,11 @@
         }
         else if (User.IsInRole("Manager"))
         {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
+            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName</h1>
         }
         else if (User.IsInRole("Member"))
         {
-            <h1>Good @ViewBag.TimeOfDay, @ViewBag.UserName.Split(" ")[0]</h1>
+            <h1>Good @ViewBag.TimeOfDay</h1>
         }
         else
         {
@@ -48,12 +44,10 @@
             string imageFileName = "sky-" + ViewBag.TimeOfDay.ToLower() + ".png";
             string imageUrl = Url.Content("~/img/" + imageFileName);
         }
-
         <div class="greeting-image-container">
             <img src="@imageUrl" class="sky-img" id="iconf" />
         </div>
     </div>
 </nav>
-
 
 
