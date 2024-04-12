@@ -14,8 +14,8 @@
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Products</a></li>
         <li><a asp-area="" asp-controller="Home" asp-action="ProductsPage">Add</a></li>
         <li>
-            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button class="logout-btn">Logout</button>
+            <form asp-area="Identity" asp-page="/Account/Logout" method="post">
+                <button type="submit" class="logout-btn">Logout</button>
             </form>
         </li>
     </ul>

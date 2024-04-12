@@ -61,6 +61,7 @@ namespace INTEX2.Controllers
             var userClaim = HttpContext.User.Identity?.Name;
             var user = _userManager.FindByNameAsync(userClaim);
 
+
             var mostPurchasedProducts = _repo.GetMostPurchasedProducts();
             var viewBagListMP = new List<dynamic>();
             foreach (var product in mostPurchasedProducts)
@@ -97,24 +98,14 @@ namespace INTEX2.Controllers
 
                 return View();
             }
-            else if (user.Result?.FirstName == "Admin" && user.Result?.LastName == "Admin" && user.Result?.Email == "admin@admin.com")
+            else if (User.IsInRole("Admin"))
             {
                 ViewBag.TimeOfDay = _tools.GetTimeOfDay();
                 ViewBag.UserName = user.Result?.FirstName;
+                
 
-                return RedirectToAction("AdminIndex");
+                return View("AdminIndex");
             }
-            return View();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public IActionResult AdminIndex()
-        {
-            var userClaim = HttpContext.User.Identity?.Name;
-            var user = _userManager.FindByNameAsync(userClaim);
-            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
-            ViewBag.UserName = user.Result?.FirstName;
             return View();
         }
 

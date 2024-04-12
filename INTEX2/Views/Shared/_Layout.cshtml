@@ -21,45 +21,6 @@
     </script>
 </head>
 <body>
-    <header>
-
-    </header>
-
-   
-
-@*     <header>
-        <img class="logo-main" asp-area="" asp-controller="Home" asp-action="Index" />
-        <nav class="nav-main">
-             <div class="nav__links">
-                    <ul class="nav__links-cent">
-                        <li class="nav-item">
-                            <a>Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a>Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a>Secrets</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-             </div>
-        </nav>
-    </header>
- *@
-
-@*     <ul class="nav__links">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Secrets">Secrets</a>
-        </li>
-    </ul> *@
-
 
     <div class="main-content">
         <main role="main" class="pb-3">
@@ -69,8 +30,8 @@
 
   
 
-    <!-- Ashley is playing around with some stuff for cookie ;)-->
-    @if (!Context.Request.Cookies.ContainsKey("CookieConsent"))
+<!-- Ashley is playing around with some stuff for cookie ;)-->
+@*     @if (!Context.Request.Cookies.ContainsKey("CookieConsent"))
     {
         <div id="cookieConsentBanner" class="cookie-consent-banner">
             <p>
@@ -79,21 +40,9 @@
             </p>
             <button id="acceptCookieBtn" class="cookie-btn">Accept</button>
         </div>
-    }
+    } *@
 
 
-
-
-
-
-@*     <footer class="footer">
-        <div class="feets">
-                  <div class="container">
-            &copy; @GetYear() - INTEX - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-        </div>
-  
-    </footer> *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -142,19 +91,19 @@
             }
         }
 
-        // Event listener for the accept button
-        document.addEventListener("DOMContentLoaded", function () {
-            var acceptButton = document.getElementById("acceptCookieBtn");
-            if (acceptButton) { // Check if the accept button exists to avoid any null reference
-                acceptButton.addEventListener("click", hideCookieConsent); // Attach event listener
-            }
+        // // Event listener for the accept button
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     var acceptButton = document.getElementById("acceptCookieBtn");
+        //     if (acceptButton) { // Check if the accept button exists to avoid any null reference
+        //         acceptButton.addEventListener("click", hideCookieConsent); // Attach event listener
+        //     }
 
-            // Show the cookie consent banner initially
-            var consentBanner = document.getElementById("cookieConsentBanner");
-            if (consentBanner) { // Check if the banner exists to avoid any null reference
-                consentBanner.style.display = "block";
-            }
-        });
+        //     // Show the cookie consent banner initially
+        //     var consentBanner = document.getElementById("cookieConsentBanner");
+        //     if (consentBanner) { // Check if the banner exists to avoid any null reference
+        //         consentBanner.style.display = "block";
+        //     }
+        // });
     </script>
 
 
