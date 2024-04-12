@@ -30,39 +30,41 @@
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
 @model Product
-<h1>Edit Customer Information</h1>
+<div class="edit-cust">
+    <h1>Edit Customer Information</h1>
 
-<div class="form-box">
-    <div class="form-container">
-        <form method="post">
-            <input type="hidden" asp-for="ProductId" />
-            <label asp-for="Name">Name:</label>
-            <input asp-for="Name" required />
-            <br />
-            <label asp-for="Year">Last Name:</label>
-            <input type="number" asp-for="Year" required />
-            <br />
-            <label asp-for="NumParts">Number of Parts:</label>
-            <input type="number" asp-for="NumParts" required />
-            <br />
-            <label asp-for="Price">Price:</label>
-            <input type="number" asp-for="Price" required />
-            <br />
-            <label asp-for="ImgLink">Image Link:</label>
-            <input asp-for="ImgLink" required />
-            <br />
-            <label asp-for="PrimaryColor">Primary Color:</label>
-            <input asp-for="PrimaryColor" required />
-            <br />
-            <label asp-for="SecondaryColor">Secondary Color:</label>
-            <input asp-for="SecondaryColor" required />
-            <br />
-            <label asp-for="Description">Description:</label>
-            <input asp-for="Description" required />
-            <br />
-            <button type="submit">SUBMIT</button>
-            <div asp-validation-summary="All"></div>
-        </form>
+    <div class="form-box">
+        <div class="form-container">
+            <form method="post">
+                <input type="hidden" asp-for="ProductId" />
+                <label asp-for="Name">Name:</label>
+                <input asp-for="Name" required />
+                <br />
+                <label asp-for="Year">Year:</label>
+                <input type="number" asp-for="Year" required />
+                <br />
+                <label asp-for="NumParts">Number of Parts:</label>
+                <input type="number" asp-for="NumParts" required />
+                <br />
+                <label asp-for="Price">Price:</label>
+                <input type="number" asp-for="Price" required />
+                <br />
+                <label asp-for="ImgLink">Image Link:</label>
+                <input asp-for="ImgLink" required />
+                <br />
+                <label asp-for="PrimaryColor">Primary Color:</label>
+                <input asp-for="PrimaryColor" required />
+                <br />
+                <label asp-for="SecondaryColor">Secondary Color:</label>
+                <input asp-for="SecondaryColor" required />
+                <br />
+                <label asp-for="Description">Description:</label>
+                <input asp-for="Description" required />
+                <br />
+                <button type="submit">SUBMIT</button>
+                <div asp-validation-summary="All"></div>
+            </form>
+        </div>
     </div>
 </div>
 

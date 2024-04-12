@@ -3,21 +3,22 @@
 *@
 @{
 }
-<div>
-    @if(ViewBag.Prediction != null)
-    {
-        if (ViewBag.Prediction == "Potentially Fraudulent Purchase")
+<div class="fraud-container">
+    <div class="fraud-content">
+        @if (ViewBag.Prediction != null)
         {
-            <h2>Thank you for your purchase! 
-                Your Order is under review. We will let you know when it is ready!</h2>
+            if (ViewBag.Prediction == "Potentially Fraudulent Purchase")
+            {
+                <h2>Thank you for your purchase! Your Order is under review. We will let you know when it is ready!</h2>
+            }
+            else if (ViewBag.Prediction == "Not Fraudulent")
+            {
+                <h2>Thank you for your purchase! Your order is on its way.</h2>
+            }
         }
-        else if (ViewBag.Prediction == "Not Fraudulent")
+        else
         {
-            <h2>Thank you for your purchase! Your order is on its way.</h2>
+            <h2>Something went wrong. Please try again later.</h2>
         }
-    }
-    else
-    {
-        <h2>Something went wrong. Please try again later.</h2>
-    }
+    </div>
 </div>

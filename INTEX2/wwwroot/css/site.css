@@ -362,8 +362,8 @@ footer {
 }
 
 
-.
--btn {
+
+.logout-btn {
     background: none;
     border: none;
     color: inherit;
@@ -1239,4 +1239,184 @@ footer {
     .lit:hover {
         background-color: var(--login);
         color: var(--hover);
+    }
+
+
+/* Main styles */
+.admin-table {
+    padding: 20px;
+    overflow-x: auto;
+    
+}
+
+.main-heading {
+    color: var(--my-pink); /* Light pink */
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    color: var(--my-pink);
+}
+
+    .table th,
+    .table td {
+        padding: 8px;
+        border: 1px solid #000; /* Black */
+    }
+
+    .table thead {
+        background-color: var(--secondary); /* White */
+        color: var(--black); /* Dark red */
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: var(--img-back); /* Light gray */
+    }
+
+    .table tbody tr:hover {
+        background-color: (--img-back); /* Dark red */
+    }
+
+/* Button styles */
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-info {
+    color: var(--secondary); /* White */
+    background-color: var(--morning-text-color); /* Light blue */
+    border-color: var(--morning-text-color); /* Light blue */
+}
+
+    .btn-info:hover {
+        background-color: var(--afternoon-text-color); /* Dark blue */
+        border-color: var(--afternoon-text-color); /* Dark blue */
+    }
+
+.btn-dark {
+    color: var(--secondary); /* White */
+    background-color: var(--night-text-color); /* Dark blue */
+    border-color: var(--night-text-color); /* Dark blue */
+}
+
+    .btn-dark:hover {
+        background-color: var(--img-back); /* Dark yellow */
+        border-color: var(--img-back); /* Dark yellow */
+    }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .table {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+
+.fraud-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+}
+
+.fraud-content {
+    text-align: center;
+}
+
+.scrollable-box {
+    max-height: 50px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Add border for styling */
+    padding: 5px; /* Add padding for better appearance */
+}
+
+.scrollable-vert {
+    max-height: 50px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Add border for styling */
+    padding: 5px; /* Add padding for better appearance */
+    word-wrap: break-word;
+    max-width: 250px;
+}
+
+.edit-cust {
+    text-align: center;
+   
+}
+
+    .edit-cust h1 {
+        margin-bottom: 20px;
+        color: var(--my-pink);
+    }
+
+    .edit-cust .form-box {
+        display: flex;
+        justify-content: center;
+        color: var(--my-pink);
+    }
+
+    .edit-cust .form-container {
+        width: 400px;
+        
+        padding: 20px;
+        border-radius: 15px;
+        background-color: var(--img-back);
+    }
+
+    .edit-cust form label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .edit-cust form input[type="text"],
+    .edit-cust form input[type="date"],
+    .edit-cust form select,
+    .edit-cust form input[type="number"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        border: 5px;
+    }
+
+    .edit-cust form button[type="submit"] {
+        background-color: var(--my-pink);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .edit-cust form button[type="submit"]:hover {
+            background-color: var(--return-link);
+        }
+
+    .edit-cust form div.validation-summary-errors {
+        color: red;
+        margin-top: 10px;
     }

@@ -29,49 +29,51 @@
 }
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
+
 @model List<Customer>
-<h1>Aurora Bricks Customers</h1>
 
-<table class="table table-bordered">
-    <thead classs="fw-bold">
-        <br />
-        <tr>
-            <th>CustomerId</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>BirthDate</th>
-            <th>CountryOfResidence</th>
-            <th>Gender </th>
-            <th>Age</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var x in Model)
-        {
-            @if (Model != null && Model.Any())
-            {
+<div class="admin-table">
+        <h1 class="main-heading">Aurora Bricks Customers</h1>
+
+        <table class="table table-bordered">
+            <thead class="fw-bold">
                 <tr>
-                    <td>@x.CustomerId</td>
-                    <td>@x.FirstName</td>
-                    <td>@x.LastName</td>
-                    <td>@x.BirthDate</td>
-                    <td>@x.CountryOfResidence</td>
-                    <td>@x.Gender</td>
-                    <td>@x.Age</td>
-                    <td>
-                        <a class="btn btn-info" asp-controller="Home" asp-action="EditCustomer"
-                           asp-route-id="@x.CustomerId">Edit</a>
-                    </td>
-
-                    <td>
-                        <a class="btn btn-dark" asp-controller="Home" asp-action="DeleteCustomer" asp-route-id="@x.CustomerId"
-                           style="color: white;">Delete</a>
-                    </td>
+                    <th>CustomerId</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>BirthDate</th>
+                    <th>CountryOfResidence</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
-
-
-            }}
-    </tbody>
-</table>
-
-<vc:footer-types></vc:footer-types>
+            </thead>
+            <tbody>
+                @foreach (var x in Model)
+                {
+                    @if (Model != null && Model.Any())
+                    {
+                        <tr>
+                            <td>@x.CustomerId</td>
+                            <td>@x.FirstName</td>
+                            <td>@x.LastName</td>
+                            <td>@x.BirthDate</td>
+                            <td>@x.CountryOfResidence</td>
+                            <td>@x.Gender</td>
+                            <td>@x.Age</td>
+                            <td>
+                                <a class="btn btn-info" asp-controller="Home" asp-action="EditCustomer"
+                                asp-route-id="@x.CustomerId">Edit</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-dark" asp-controller="Home" asp-action="DeleteCustomer" asp-route-id="@x.CustomerId"
+                                style="color: white;">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <vc:footer-types></vc:footer-types>
