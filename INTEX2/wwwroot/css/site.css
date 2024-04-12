@@ -121,7 +121,7 @@ nav ul {
         }
 
             nav ul li a:hover {
-                color: #d4153a;
+                color: var(--black);
                 
             }
 
@@ -1219,4 +1219,23 @@ footer {
 
     .btn:hover {
         background-color: #0056b3; /* Button background color on hover */
+    }
+
+.lit {
+    margin-top: 23px;
+    margin-bottom: 10px;
+    background-color: var(--my-pink);
+    padding: 8px 20px; /* Adjust padding to change button size */
+    font-size: 14px; /* Adjust font size as needed */
+    border-radius: 20px; /* Add border radius for rounded corners */
+    font-weight: 600;
+    color: var(--secondary);
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove box shadow */
+    outline: none; /* Remove outline */
+}
+
+    .lit:hover {
+        background-color: var(--login);
+        color: var(--hover);
     }
