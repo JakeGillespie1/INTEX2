@@ -29,22 +29,16 @@
 }
 
 <vc:nav-bar-types user="Admin"></vc:nav-bar-types>
+@model Customer
+<!--Delete Record Confirmation goes below-->
 
-
-
-
-<div class="admin-image-cont">
-    <div class="admin-image-wrapper">
-        <img src="~/img/driver.jpg" id="admin-pic" alt="3 peeps" />
-       
-        <a asp-area="" asp-controller="Home" asp-action="ProductsPage">WELCOME ADMIN</a>
-    </div>
-</div>
-
-<div class="admin-buttons">
-    <a href="#" class="admin-button">Edit Products</a>
-    <a href="#" class="admin-button">Review Order</a>
-    <a href="#" class="admin-button">Add Items</a>
-    <a asp-area="" asp-controller="Home" asp-action="Customers" class="admin-button">User List</a>
+<div class="title-format">
+    <h3>Confirm Deletion</h3>
+    <p>@Model.FirstName, @Model.LastName</p>
+    <form method="post" asp-controller="Home" asp-action="DeleteCustomer">
+        <input type="hidden" asp-for="CustomerId" />
+        <button class="btn-delete" type="submit">Delete</button>
+        <a class="btn-edit" asp-controller="Home" asp-action="Index">Cancel</a>
+    </form>
 </div>
 <vc:footer-types></vc:footer-types>

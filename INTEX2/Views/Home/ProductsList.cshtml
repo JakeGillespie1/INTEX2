@@ -29,20 +29,22 @@
 }
 
 <vc:nav-bar-types user="@userRole"></vc:nav-bar-types>
-@model List<Customer>
+@model List<Product>
 <h1>Aurora Bricks Customers</h1>
 
 <table class="table table-bordered">
     <thead classs="fw-bold">
         <br />
         <tr>
-            <th>CustomerId</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>BirthDate</th>
-            <th>CountryOfResidence</th>
-            <th>Gender </th>
-            <th>Age</th>
+            <th>ProductId</th>
+            <th>Name</th>
+            <th>Year</th>
+            <th>NumberOfParts</th>
+            <th>Price</th>
+            <th>ImageLink</th>
+            <th>PrimaryColor</th>
+            <th>SecondaryColor</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -51,26 +53,28 @@
             @if (Model != null && Model.Any())
             {
                 <tr>
-                    <td>@x.CustomerId</td>
-                    <td>@x.FirstName</td>
-                    <td>@x.LastName</td>
-                    <td>@x.BirthDate</td>
-                    <td>@x.CountryOfResidence</td>
-                    <td>@x.Gender</td>
-                    <td>@x.Age</td>
+                    <td>@x.ProductId</td>
+                    <td>@x.Name</td>
+                    <td>@x.Year</td>
+                    <td>@x.NumParts</td>
+                    <td>@x.Price</td>
+                    <td>@x.ImgLink</td>
+                    <td>@x.PrimaryColor</td>
+                    <td>@x.SecondaryColor</td>
+                    <td>@x.Description</td>
                     <td>
                         <a class="btn btn-info" asp-controller="Home" asp-action="EditCustomer"
-                           asp-route-id="@x.CustomerId">Edit</a>
+                           asp-route-id="@x.ProductId">Edit</a>
                     </td>
 
                     <td>
-                        <a class="btn btn-dark" asp-controller="Home" asp-action="DeleteCustomer" asp-route-id="@x.CustomerId"
+                        <a class="btn btn-dark" asp-controller="Home" asp-action="DeleteCustomer" asp-route-id="@x.ProductId"
                            style="color: white;">Delete</a>
                     </td>
                 </tr>
 
 
-            }}
+            }   }
     </tbody>
 </table>
 

@@ -17,7 +17,7 @@ namespace INTEX2.Models
 
         public IQueryable<Category> Categories => _context.Categories;
 
-        public IEnumerable<Product> Products => _context.Products;
+        public List<Product> Products => _context.Products.ToList();
 
         public List<Customer> Customers => _context.Customers.ToList();
 
@@ -124,6 +124,18 @@ namespace INTEX2.Models
         public void EditCustomer(Customer customer)
         {
             _context.Update(customer);
+            _context.SaveChanges();
+        }
+
+        public void DeleteCustomer(Customer customer) 
+        {
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+
+        public void EditProduct(Product product)
+        {
+            _context.Update(product);
             _context.SaveChanges();
         }
 
