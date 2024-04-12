@@ -108,7 +108,7 @@ namespace INTEX2.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult AdminIndex()
         {
             var userClaim = HttpContext.User.Identity?.Name;
@@ -510,6 +510,49 @@ namespace INTEX2.Controllers
             }
             // Pass product model to ProductDetail.cshtml view
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Products()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Customers()
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+            var customers = _repo.Customers;
+            return View(customers);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(int id)
+        {
+            var userClaim = HttpContext.User.Identity?.Name;
+            var user = _userManager.FindByNameAsync(userClaim);
+            ViewBag.TimeOfDay = _tools.GetTimeOfDay();
+            ViewBag.UserName = user.Result?.FirstName;
+
+            var customer = _repo.Customers
+                .Single(x =>  x.CustomerId == id);
+
+            return View(customer);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult EditCustomer(Customer customer)
+        {
+
+            _repo.EditCustomer(customer);
+
+            return RedirectToAction("Customers");
+        }
+
 
         public IActionResult About()
         {
